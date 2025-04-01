@@ -1,0 +1,54 @@
+@use "../variables.module" as *;
+
+
+.container {
+    width: 100%;
+    background-color: $white;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px;
+    border-radius: 5px;
+
+    span {
+        font-size: $fntbase;
+        color: $Neutral700;
+    }
+
+    .btn {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+
+        button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 5px;
+            width: 35px;
+            height: 35px;
+            border: none;
+            background-color: transparent;
+            border-radius: 100px;
+            cursor: pointer;
+
+            &:hover {
+                background-color: $Primary500;
+
+                svg {
+                    stroke: $white;
+                }
+            }
+
+            &:disabled {
+                &:hover {
+                    background-color: $Neutral500;
+                }
+
+                svg {
+                    stroke: $Neutral700;
+                }
+            }
+        }
+    }
+}

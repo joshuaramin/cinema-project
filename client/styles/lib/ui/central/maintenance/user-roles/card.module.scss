@@ -1,0 +1,80 @@
+@use "../../../../../variables.module" as *;
+
+
+.container {
+    width: 100%;
+    height: 235px;
+    padding: 20px;
+    border-radius: 5px;
+    background-color: #fff;
+
+    .cardHeader {
+        width: 100%;
+
+        h2 {
+            font-size: $fntxl;
+        }
+    }
+
+    .cardBody {
+        width: 100%;
+        height: 115px;
+        display: flex;
+        align-items: center;
+        padding: 0 10px;
+
+        .profileCard {
+            background-color: $Neutral200;
+            padding: 10px;
+            border-radius: 100px;
+            height: 40px;
+            width: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid $white;
+            position: relative;
+
+            &:hover {
+                border: 2px solid $Primary500;
+            }
+
+            span {
+                font-size: $fnttiny;
+                user-select: none;
+            }
+
+            &:hover {
+                .hovername {
+                    display: block;
+                    position: absolute;
+                    top: 45px;
+                    background-color: $Primary500;
+                    border-radius: 5px;
+                    padding: 5px;
+
+                    span {
+                        width: 100%;
+                        white-space: nowrap;
+                        color: $white;
+                    }
+                }
+            }
+
+            .hovername {
+                display: none;
+            }
+
+        }
+
+
+
+
+    }
+
+    .cardFooter {
+        width: 100%;
+        display: flex;
+        align-items: center;
+    }
+}

@@ -1,0 +1,60 @@
+@use "../../variables.module" as *;
+
+.container {
+    width: 100%;
+    display: flex;
+    gap: 10px;
+    padding: 20px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    border: 1px solid $Neutral200;
+
+    div {
+        display: flex;
+        gap: 5px;
+
+        button {
+            padding: 10px 8px;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            &:hover {
+                background-color: $Primary500;
+
+                svg {
+                    stroke: $white;
+                }
+            }
+
+            &:disabled {
+                background-color: $Neutral200;
+
+                &:hover {
+                    svg {
+                        stroke: $Primary500;
+                    }
+                }
+            }
+        }
+
+        .active {
+            background-color: $Primary500;
+
+
+            svg {
+                stroke: $white;
+            }
+        }
+    }
+
+
+}
+
+.divider {
+    width: 0.5px;
+    border: 0.1px solid $black;
+}

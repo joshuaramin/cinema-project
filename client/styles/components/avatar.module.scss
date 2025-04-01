@@ -1,0 +1,25 @@
+@use "../variables.module" as *;
+
+.container {
+    background-color: $Neutral200;
+    overflow: hidden;
+}
+
+.small {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5px;
+    width: 48px;
+    height: 48px;
+}
+
+
+.large {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5px;
+    width: 68px;
+    height: 68px;
+}

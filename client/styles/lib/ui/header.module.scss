@@ -1,0 +1,106 @@
+@use "../../variables.module" as *;
+@use "../../mixin.module" as *;
+
+.container {
+    width: 100%;
+    border-bottom: 1px solid $Neutral200;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 2rem;
+
+    @include large-phone {
+        padding: 0 1em;
+        justify-content: space-between;
+    }
+
+    // div {
+    //     display: flex;
+    //     align-items: center;
+
+
+    // }
+
+    .links {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        gap: 40px;
+
+        @include small-phone {
+            display: none;
+        }
+
+        @include medium-phone {
+            display: none;
+        }
+
+        @include large-phone {
+            display: none;
+        }
+    }
+
+    .authentication {
+        justify-content: flex-end;
+    }
+
+    button {
+        padding: 12px 14px;
+        display: flex;
+        align-items: center;
+        border-radius: 5px;
+        border: none;
+        background-color: $Primary500;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+
+        span {
+            font-size: $fntbase;
+            color: $white;
+        }
+
+        svg {
+            stroke: #fff;
+        }
+    }
+
+    .authentication {
+        display: flex;
+        align-content: center;
+        justify-content: center;
+        gap: 10px;
+
+        @include small-phone {
+            display: none;
+        }
+
+        @include medium-phone {
+            display: none;
+        }
+
+        @include large-phone {
+            display: none;
+        }
+
+    }
+
+    .unauthenticated {
+
+        display: none;
+
+        @include small-phone {
+            display: block;
+        }
+
+        @include medium-phone {
+            display: block;
+        }
+
+        @include large-phone {
+            display: block;
+        }
+    }
+}

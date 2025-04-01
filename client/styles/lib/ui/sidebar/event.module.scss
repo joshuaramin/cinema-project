@@ -1,0 +1,66 @@
+@use "../../../variables.module" as *;
+
+
+.container {
+    width: 600px;
+    overflow-y: auto;
+    border-left: 1px solid #ccc;
+    padding: 20px;
+    background-color: #fff;
+
+    &::-webkit-scrollbar {
+        width: 5px;
+    }
+
+    .events {
+        display: flex;
+        flex-direction: column;
+        overflow-y: auto;
+        gap: 0;
+        margin: 5px 0;
+
+        .eventCard {
+            width: 100%;
+            border-radius: 2px;
+            padding: 10px 00;
+            border-radius: 5px;
+            display: flex;
+            gap: 15px;
+
+            &::before {
+                content: "";
+                width: 0.25rem;
+                background-color: $Primary500;
+            }
+
+            .date {
+                display: flex;
+                align-items: center;
+                gap: 5px;
+                padding: 5px 0;
+
+                span {
+                    font-size: $fnttiny;
+                }
+
+                svg {
+                    stroke-width: 1.5px;
+                }
+            }
+
+            h2 {
+                font-size: $fntbase;
+            }
+
+            span {
+                font-size: $fnttiny;
+            }
+
+            .info {
+                display: flex;
+                flex-direction: column;
+                gap: 5px;
+            }
+        }
+    }
+}

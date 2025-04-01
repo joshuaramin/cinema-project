@@ -1,0 +1,139 @@
+@use "../../../variables.module" as *;
+
+@use "../../../mixin.module" as *;
+
+.container {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+
+    .sidebar,
+    .login {
+        width: 100%;
+    }
+
+    .sidebar {
+        background-color: $Primary500;
+
+        @include small-phone {
+            display: none;
+        }
+
+        @include medium-phone {
+            display: none;
+        }
+
+        @include large-phone {
+            display: none;
+        }
+    }
+
+    .login {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 20em 10em;
+
+        @include small-phone {
+            padding: 1em;
+        }
+
+        @include medium-phone {
+            padding: 1em;
+        }
+
+        @include large-phone {
+            padding: 1em;
+        }
+
+        .title {
+            height: 80px;
+            align-items: center;
+            width: 100%;
+            display: flex;
+            justify-content: flex-start;
+            padding: 0 5px;
+        }
+
+        h2 {
+            font-size: $fnt2xl;
+        }
+
+        .form {
+            width: 100%;
+
+            .other {
+                width: 100%;
+                height: auto;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                padding: 10px;
+
+                input {
+                    appearance: none;
+                    height: 17px;
+                    width: 17px;
+                    border-radius: 3px;
+                    border: 1px solid #ccc;
+                    cursor: pointer;
+
+                    &:checked {
+                        background-color: $Primary500;
+                        border: none;
+                    }
+                }
+
+                .remember {
+                    display: flex;
+                    align-items: center;
+                    gap: 10px;
+                }
+            }
+
+            .submitBtn {
+                display: flex;
+                justify-content: flex-end;
+                padding: 0 10px;
+
+                .btn {
+                    width: 100%;
+                    padding: 14px 16px;
+                    border-radius: 5px;
+                    outline: none;
+                    border: none;
+                    cursor: pointer;
+                    background-color: $Primary500;
+
+                    span {
+                        color: $white;
+                        font-size: $fntbase;
+                    }
+                }
+            }
+
+            .account {
+                width: 100%;
+                height: 60px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 5px;
+
+                span {
+                    color: $Neutral800;
+                }
+
+                a {
+                    font-size: $fntbase;
+                    color: $Primary500;
+
+                    &:hover {
+                        text-decoration: underline 2px solid $Primary500
+                    }
+                }
+            }
+        }
+    }
+}

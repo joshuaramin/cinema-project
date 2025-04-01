@@ -1,0 +1,82 @@
+@use "../../../../variables.module" as *;
+
+.container {
+    width: 100%;
+    padding: 20px 10px;
+    border-radius: 5px;
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+    .maintenanceCard {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 5px 10px;
+
+        .nameContainer,
+        .recorderContainer {
+            span {
+                color: $Neutral600;
+            }
+        }
+
+
+        .nameContainer,
+        .recorderContainer,
+        .buttonContainer {
+            width: 250px;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+
+            h2 {
+                font-size: $fntbase;
+            }
+
+            span {
+                font-size: 14px;
+            }
+        }
+
+        .buttonContainer {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: row;
+
+
+            button {
+                padding: 12px 16px;
+                border-radius: 5px;
+                background-color: $Primary500;
+                color: $white;
+                border: none;
+                cursor: pointer;
+
+                span {
+                    font-size: $fntbase;
+                }
+            }
+
+            .viewmore {
+                background-color: $white;
+                box-shadow: 0px 0px 2px 0px $Neutral600;
+                color: $black;
+
+                &:hover {
+                    background-color: $Primary500;
+                    color: $white;
+                }
+            }
+
+            .addmore {
+                span {
+                    color: $white;
+                }
+            }
+        }
+    }
+}

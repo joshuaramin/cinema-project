@@ -1,0 +1,71 @@
+@use "../../../../variables.module" as *;
+
+.container {
+    width: 100%;
+    height: 120px;
+    background-color: $Primary500;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+
+    .profileContainer {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        gap: 20px;
+
+        .avatar {
+            width: 45px;
+            height: 45px;
+            background-color: $Neutral400;
+            border-radius: 100px;
+
+
+        }
+
+
+        .pf {
+            display: flex;
+            flex-direction: column;
+        }
+
+        span {
+            font-size: $fntbase;
+            color: $white;
+        }
+
+        .account_no {
+            font-size: $fnttiny;
+        }
+    }
+
+    .notification {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        button {
+            background-color: transparent;
+            border: none;
+            padding: 8px;
+            border-radius: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+
+            svg {
+                stroke: #fff;
+                stroke-width: 1.5px;
+            }
+
+            &:hover {
+                background-color: $white;
+
+                svg {
+                    stroke: $Primary500;
+                }
+            }
+        }
+    }
+}

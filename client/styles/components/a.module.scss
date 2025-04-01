@@ -1,0 +1,51 @@
+@use "../variables.module" as *;
+
+.a {
+    color: $Primary500;
+    cursor: pointer;
+    font-size: $fntbase;
+
+    &:hover {
+        text-decoration: underline 2px solid $Primary500;
+    }
+}
+
+.buttonLink {
+    border-radius: 4px;
+    width: 100%;
+    padding: 10px 12px;
+    font-size: $fntbase;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+
+    a {
+        width: 100%;
+        font-size: $fntbase;
+    }
+
+    svg {
+        stroke-width: 2px;
+        color: $Primary500;
+    }
+
+    &:hover {
+        background-color: $Primary500;
+        color: $white;
+
+        svg {
+            stroke: $white
+        }
+    }
+}
+
+.titleLink {
+    font-size: $fntlg;
+    color: $Neutral900;
+
+    &:hover {
+        text-decoration: underline 2px solid $black;
+        color: $black;
+    }
+}

@@ -1,0 +1,23 @@
+@use "../variables.module" as *;
+
+.container {
+    width: 100%;
+    display: flex;
+    background-color: $Neutral200;
+    height: 100vh;
+
+    .body {
+        width: 100%;
+        padding: 20px;
+        overflow-y: auto;
+
+        &::-webkit-scrollbar {
+            width: 5px;
+        }
+
+        &::-webkit-scrollbar-thumb {
+            background-color: $Neutral600;
+            border-radius: 100px;
+        }
+    }
+}

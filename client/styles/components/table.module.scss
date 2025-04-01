@@ -1,0 +1,65 @@
+@use "../variables.module" as *;
+
+.container {
+    padding: 20px 0;
+
+    table {
+        border-collapse: collapse;
+        width: 100%;
+
+        thead,
+        tbody {
+            tr {
+                &:nth-child(even) {
+                    background-color: $Neutral200;
+
+                }
+
+                th {
+                    width: 500px;
+                    font-size: $fntbase;
+                    text-align: left;
+                    padding: 10px 20px
+                }
+
+                td {
+                    padding: 15px 20px;
+                    color: #2b2b2b;
+                }
+
+                .actionbtn {
+                    display: flex;
+                    gap: 5px;
+                }
+
+                .edit,
+                .trash {
+                    border-radius: 5px;
+                    border: none;
+                    border-radius: 100px;
+                    background-color: transparent;
+                    height: 35px;
+                    width: 35px;
+                    cursor: pointer;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+
+                    svg {
+                        stroke: #2b2b2b;
+                    }
+
+                    &:hover {
+                        background-color: $Primary500;
+
+                        svg {
+                            stroke: $white;
+                        }
+                    }
+                }
+
+                .edit {}
+            }
+        }
+    }
+}

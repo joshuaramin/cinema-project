@@ -1,0 +1,61 @@
+@use "../variables.module" as *;
+
+.container {
+    width: 100%;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    .header {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+
+        .isRequired {
+            color: $Error500;
+        }
+
+        label {
+            font-size: $fntbase;
+        }
+    }
+
+    .body {
+        width: 100%;
+        padding: 5px 10px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        border: 1px solid $Neutral200;
+        border-radius: 5px;
+
+        textarea {
+            border-radius: 3px;
+            min-height: 100px;
+            resize: none;
+            padding: 10px;
+            border: none;
+            outline: none;
+
+            &::-webkit-scrollbar {
+                width: 5px;
+            }
+
+            &::-webkit-scrollbar-thumb {
+                background-color: $Neutral600;
+                border-radius: 100px;
+            }
+        }
+    }
+
+    .errorBody {
+        width: 100%;
+        padding: 5px;
+
+        .error {
+            font-size: $fntbase;
+            color: $Error500;
+        }
+    }
+}

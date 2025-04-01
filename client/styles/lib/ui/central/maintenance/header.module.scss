@@ -1,0 +1,31 @@
+@use "../../../../variables.module" as *;
+
+.container {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 10px;
+
+    .addNew {
+        padding: 16px 20px;
+        border-radius: 5px;
+        border: none;
+        background-color: $Primary500;
+        color: $white;
+        cursor: pointer;
+
+        span {
+            font-size: $fntbase;
+        }
+    }
+
+    .searchInput {
+        height: 50px;
+        border: none;
+        border-radius: 5px;
+        width: 350px;
+        padding: 0 15px;
+        outline: none;
+    }
+}

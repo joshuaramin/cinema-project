@@ -1,0 +1,13 @@
+@use "../variables.module" as *;
+
+
+.container {
+    height: 100px;
+    display: flex;
+    align-items: center;
+
+    span {
+        font-size: $fntbase;
+        color: $Neutral600;
+    }
+}

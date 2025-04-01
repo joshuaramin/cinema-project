@@ -1,0 +1,54 @@
+@use "../variables.module" as *;
+
+.container {
+    padding: 12px 14px;
+    border-radius: 5px;
+    border: none;
+    background-color: $Primary500;
+    color: $white;
+    cursor: pointer;
+
+    span {
+        font-size: $fntbase;
+    }
+}
+
+.deleteBtnContainer {
+    padding: 12px 14px;
+    border-radius: 5px;
+    border: none;
+    background-color: $Error600;
+    color: $white;
+    cursor: pointer;
+
+    span {
+        font-size: $fntbase;
+    }
+}
+
+.disabledBtn {
+    width: 100%;
+    padding: 12px 14px;
+    border-radius: 5px;
+    border: none;
+
+    span {
+        font-size: $fntbase;
+    }
+}
+
+.buttonRoutes {
+    padding: 10px 12px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+
+    &:hover {
+        background-color: $Primary500;
+        color: $white;
+    }
+
+    span {
+        font-size: $fntbase;
+    }
+}
