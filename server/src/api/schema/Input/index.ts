@@ -50,6 +50,7 @@ export const GroupInput = inputObjectType({
   name: "GroupInput",
   definition(t) {
     t.string("name");
+    t.int("year");
     t.string("description");
   },
 });
@@ -59,5 +60,13 @@ export const MoviesInput = inputObjectType({
   definition(t) {
     t.string("name");
     t.string("description");
+    t.int("year");
+  },
+});
+
+export const GenreInput = inputObjectType({
+  name: "GenreInput",
+  definition(t) {
+    t.string("name");
   },
 });

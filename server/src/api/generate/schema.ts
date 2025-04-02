@@ -628,13 +628,18 @@ export interface NexusGenInputs {
     email?: string | null; // String
     password?: string | null; // String
   }
+  GenreInput: { // input type
+    name?: string | null; // String
+  }
   GroupInput: { // input type
     description?: string | null; // String
     name?: string | null; // String
+    year?: number | null; // Int
   }
   MoviesInput: { // input type
     description?: string | null; // String
     name?: string | null; // String
+    year?: number | null; // Int
   }
   PaginationInput: { // input type
     page?: number | null; // Int
@@ -781,6 +786,14 @@ export interface NexusGenObjects {
     name?: string | null; // String
     updated_at?: NexusGenScalars['DateTime'] | null; // DateTime
   }
+  GenrePagination: { // root type
+    currentPage?: number | null; // Int
+    hasNextPage?: boolean | null; // Boolean
+    hasPrevPage?: boolean | null; // Boolean
+    item?: Array<NexusGenRootTypes['Genre'] | null> | null; // [Genre]
+    totalItems?: number | null; // Int
+    totalPages?: number | null; // Int
+  }
   Group: { // root type
     created_at?: NexusGenScalars['DateTime'] | null; // DateTime
     description?: string | null; // String
@@ -807,13 +820,23 @@ export interface NexusGenObjects {
     totalItems?: number | null; // Int
     totalPages?: number | null; // Int
   }
+  MoveisPagination: { // root type
+    currentPage?: number | null; // Int
+    hasNextPage?: boolean | null; // Boolean
+    hasPrevPage?: boolean | null; // Boolean
+    item?: Array<NexusGenRootTypes['Movies'] | null> | null; // [Movies]
+    totalItems?: number | null; // Int
+    totalPages?: number | null; // Int
+  }
   Movies: { // root type
     created_at?: NexusGenScalars['DateTime'] | null; // DateTime
-    descripion?: string | null; // String
+    description?: string | null; // String
     is_deleted?: boolean | null; // Boolean
     movies_id?: string | null; // ID
     name?: string | null; // String
     updated_at?: NexusGenScalars['DateTime'] | null; // DateTime
+    url?: string | null; // String
+    year?: number | null; // Int
   }
   Mutation: {};
   Permission: { // root type
@@ -879,13 +902,16 @@ export interface NexusGenObjects {
 
 export interface NexusGenInterfaces {
   Error: NexusGenRootTypes['ErrorObject'];
-  Pagination: NexusGenRootTypes['ActivityLogsPagination'] | NexusGenRootTypes['AddressPagination'] | NexusGenRootTypes['MediaPagination'] | NexusGenRootTypes['UserPagination'] | NexusGenRootTypes['UserRolePagination'];
+  Pagination: NexusGenRootTypes['ActivityLogsPagination'] | NexusGenRootTypes['AddressPagination'] | NexusGenRootTypes['GenrePagination'] | NexusGenRootTypes['MediaPagination'] | NexusGenRootTypes['MoveisPagination'] | NexusGenRootTypes['UserPagination'] | NexusGenRootTypes['UserRolePagination'];
   Success: any;
 }
 
 export interface NexusGenUnions {
+  AddressPayload: NexusGenRootTypes['Address'] | NexusGenRootTypes['ErrorObject'];
   Credentials: NexusGenRootTypes['ErrorObject'] | NexusGenRootTypes['token'];
+  GenrePayload: NexusGenRootTypes['ErrorObject'] | NexusGenRootTypes['Genre'];
   GroupPayload: NexusGenRootTypes['ErrorObject'] | NexusGenRootTypes['Group'];
+  MoviesPayload: NexusGenRootTypes['ErrorObject'] | NexusGenRootTypes['Movies'];
   PermissionPayload: NexusGenRootTypes['ErrorObject'] | NexusGenRootTypes['Permission'];
   ProfilePayload: NexusGenRootTypes['ErrorObject'] | NexusGenRootTypes['Profile'];
   UserPayload: NexusGenRootTypes['ErrorObject'] | NexusGenRootTypes['User'];
@@ -947,6 +973,14 @@ export interface NexusGenFieldTypes {
     name: string | null; // String
     updated_at: NexusGenScalars['DateTime'] | null; // DateTime
   }
+  GenrePagination: { // field return type
+    currentPage: number | null; // Int
+    hasNextPage: boolean | null; // Boolean
+    hasPrevPage: boolean | null; // Boolean
+    item: Array<NexusGenRootTypes['Genre'] | null> | null; // [Genre]
+    totalItems: number | null; // Int
+    totalPages: number | null; // Int
+  }
   Group: { // field return type
     created_at: NexusGenScalars['DateTime'] | null; // DateTime
     description: string | null; // String
@@ -974,20 +1008,32 @@ export interface NexusGenFieldTypes {
     totalItems: number | null; // Int
     totalPages: number | null; // Int
   }
+  MoveisPagination: { // field return type
+    currentPage: number | null; // Int
+    hasNextPage: boolean | null; // Boolean
+    hasPrevPage: boolean | null; // Boolean
+    item: Array<NexusGenRootTypes['Movies'] | null> | null; // [Movies]
+    totalItems: number | null; // Int
+    totalPages: number | null; // Int
+  }
   Movies: { // field return type
     created_at: NexusGenScalars['DateTime'] | null; // DateTime
-    descripion: string | null; // String
+    description: string | null; // String
     is_deleted: boolean | null; // Boolean
     movies_id: string | null; // ID
     name: string | null; // String
     updated_at: NexusGenScalars['DateTime'] | null; // DateTime
+    url: string | null; // String
+    year: number | null; // Int
   }
   Mutation: { // field return type
     add_remove_permission_user_role: NexusGenRootTypes['Permission'] | null; // Permission
     add_user_role: NexusGenRootTypes['User_Role'] | null; // User_Role
     add_user_role_to_group: NexusGenRootTypes['Group'] | null; // Group
-    create_address: NexusGenRootTypes['Address'] | null; // Address
+    create_address: NexusGenRootTypes['AddressPayload'] | null; // AddressPayload
+    create_genre: NexusGenRootTypes['Genre'] | null; // Genre
     create_group: NexusGenRootTypes['GroupPayload'] | null; // GroupPayload
+    create_movies: NexusGenRootTypes['MoviesPayload'] | null; // MoviesPayload
     create_role_permission: NexusGenRootTypes['PermissionPayload'] | null; // PermissionPayload
     create_user_account: NexusGenRootTypes['UserPayload'] | null; // UserPayload
     create_user_role: NexusGenRootTypes['UserRolePayload'] | null; // UserRolePayload
@@ -1019,6 +1065,7 @@ export interface NexusGenFieldTypes {
     countingRecords: NexusGenRootTypes['count'] | null; // count
     getAllActivityLogs: NexusGenRootTypes['ActivityLogsPagination'] | null; // ActivityLogsPagination
     getAllAddressByUserId: NexusGenRootTypes['AddressPagination'] | null; // AddressPagination
+    getAllGenre: NexusGenRootTypes['GenrePagination'] | null; // GenrePagination
     getAllGroup: Array<NexusGenRootTypes['Group'] | null> | null; // [Group]
     getAllMedia: NexusGenRootTypes['MediaPagination'] | null; // MediaPagination
     getAllPermission: Array<NexusGenRootTypes['Permission'] | null> | null; // [Permission]
@@ -1144,6 +1191,14 @@ export interface NexusGenFieldTypeNames {
     name: 'String'
     updated_at: 'DateTime'
   }
+  GenrePagination: { // field return type name
+    currentPage: 'Int'
+    hasNextPage: 'Boolean'
+    hasPrevPage: 'Boolean'
+    item: 'Genre'
+    totalItems: 'Int'
+    totalPages: 'Int'
+  }
   Group: { // field return type name
     created_at: 'DateTime'
     description: 'String'
@@ -1171,20 +1226,32 @@ export interface NexusGenFieldTypeNames {
     totalItems: 'Int'
     totalPages: 'Int'
   }
+  MoveisPagination: { // field return type name
+    currentPage: 'Int'
+    hasNextPage: 'Boolean'
+    hasPrevPage: 'Boolean'
+    item: 'Movies'
+    totalItems: 'Int'
+    totalPages: 'Int'
+  }
   Movies: { // field return type name
     created_at: 'DateTime'
-    descripion: 'String'
+    description: 'String'
     is_deleted: 'Boolean'
     movies_id: 'ID'
     name: 'String'
     updated_at: 'DateTime'
+    url: 'String'
+    year: 'Int'
   }
   Mutation: { // field return type name
     add_remove_permission_user_role: 'Permission'
     add_user_role: 'User_Role'
     add_user_role_to_group: 'Group'
-    create_address: 'Address'
+    create_address: 'AddressPayload'
+    create_genre: 'Genre'
     create_group: 'GroupPayload'
+    create_movies: 'MoviesPayload'
     create_role_permission: 'PermissionPayload'
     create_user_account: 'UserPayload'
     create_user_role: 'UserRolePayload'
@@ -1216,6 +1283,7 @@ export interface NexusGenFieldTypeNames {
     countingRecords: 'count'
     getAllActivityLogs: 'ActivityLogsPagination'
     getAllAddressByUserId: 'AddressPagination'
+    getAllGenre: 'GenrePagination'
     getAllGroup: 'Group'
     getAllMedia: 'MediaPagination'
     getAllPermission: 'Permission'
@@ -1309,8 +1377,15 @@ export interface NexusGenArgTypes {
       input: NexusGenInputs['AddressInput']; // AddressInput!
       profile_id: string; // ID!
     }
+    create_genre: { // args
+      input?: NexusGenInputs['GenreInput'] | null; // GenreInput
+    }
     create_group: { // args
       input?: NexusGenInputs['GroupInput'] | null; // GroupInput
+    }
+    create_movies: { // args
+      file?: NexusGenScalars['Upload'] | null; // Upload
+      input?: NexusGenInputs['MoviesInput'] | null; // MoviesInput
     }
     create_role_permission: { // args
       group_id: string; // ID!
@@ -1358,6 +1433,10 @@ export interface NexusGenArgTypes {
       input?: NexusGenInputs['PaginationInput'] | null; // PaginationInput
       profile_id: string; // ID!
     }
+    getAllGenre: { // args
+      input?: NexusGenInputs['PaginationInput'] | null; // PaginationInput
+      search?: string | null; // String
+    }
     getAllGroup: { // args
       search?: string | null; // String
     }
@@ -1384,21 +1463,26 @@ export interface NexusGenArgTypes {
 }
 
 export interface NexusGenAbstractTypeMembers {
+  AddressPayload: "Address" | "ErrorObject"
   Credentials: "ErrorObject" | "token"
+  GenrePayload: "ErrorObject" | "Genre"
   GroupPayload: "ErrorObject" | "Group"
+  MoviesPayload: "ErrorObject" | "Movies"
   PermissionPayload: "ErrorObject" | "Permission"
   ProfilePayload: "ErrorObject" | "Profile"
   UserPayload: "ErrorObject" | "User"
   UserRolePayload: "ErrorObject" | "User_Role"
   Error: "ErrorObject"
-  Pagination: "ActivityLogsPagination" | "AddressPagination" | "MediaPagination" | "UserPagination" | "UserRolePagination"
+  Pagination: "ActivityLogsPagination" | "AddressPagination" | "GenrePagination" | "MediaPagination" | "MoveisPagination" | "UserPagination" | "UserRolePagination"
 }
 
 export interface NexusGenTypeInterfaces {
   ActivityLogsPagination: "Pagination"
   AddressPagination: "Pagination"
   ErrorObject: "Error"
+  GenrePagination: "Pagination"
   MediaPagination: "Pagination"
+  MoveisPagination: "Pagination"
   UserPagination: "Pagination"
   UserRolePagination: "Pagination"
 }

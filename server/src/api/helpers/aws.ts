@@ -9,15 +9,18 @@ const client = new S3Client({
   region: process.env.AWS_REGION,
 });
 
-export async function AWSUploader(createReadStream: any, filename: any) {
+export async function AWSUploader(
+  createReadStream: any,
+  filename: any,
+) {
   try {
     const fUpload = new Upload({
       client,
       params: {
-        Bucket: process.env.BUCKET,
+        Bucket: process.env.AWS_BUCKET,
         Key: filename,
         Body: createReadStream(),
-        ACL: "public-read",
+        ACL: "public-read"
       },
     });
 
@@ -29,6 +32,7 @@ export async function AWSUploader(createReadStream: any, filename: any) {
 
     return `https://${process.env.AWS_BUCKET}.s3.${process.env.AWS_REGION}.amazonaws.com/${filename}`;
   } catch (err) {
-    console.error(err);
+    console.error("Error uploading to AWS:", err);
+    throw new Error("Failed to upload file to AWS.");
   }
 }

@@ -6,13 +6,25 @@ export const AddressMutation = extendType({
   type: "Mutation",
   definition(t) {
     t.field("create_address", {
-      type: "Address",
+      type: "AddressPayload",
       args: { input: nonNull("AddressInput"), profile_id: nonNull(idArg()) },
       authorize: (parent, args, ctx) => {
         return Authorization(ctx);
       },
       resolve: async (_, { input, profile_id }, { prisma }: Context) => {
-        return await prisma.address.create({
+        for (const key in input) {
+          if (input.hasOwnProperty(key)) {
+            if (!input[key]) {
+              return {
+                __typename: "ErrorObject",
+                code: 400,
+                message: `${key} is required`,
+              };
+            }
+          }
+        }
+
+        const address = await prisma.address.create({
           data: {
             address_line_1: input.address_line_1,
             address_line_2: input.address_line_2,
@@ -22,6 +34,11 @@ export const AddressMutation = extendType({
             Profile: { connect: { profile_id } },
           },
         });
+
+        return {
+          __typename: "Address",
+          ...address,
+        };
       },
     });
     t.field("update_address", {

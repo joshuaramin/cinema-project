@@ -15,6 +15,7 @@ export const GroupPayload = unionType({
 });
 export const PermissionPayload = unionType({
   name: "PermissionPayload",
+  
   definition(t) {
     t.members("Permission", "ErrorObject");
   },
@@ -42,7 +43,7 @@ export const ProfilePayload = unionType({
 });
 
 export const MoviePayload = unionType({
-  name: "MoviePayload",
+  name: "MoviesPayload",
   definition(t) {
     t.members("Movies", "ErrorObject");
   },
@@ -54,3 +55,11 @@ export const GenrePayload = unionType({
     t.members("Genre", "ErrorObject");
   },
 });
+
+
+export const AddressPayload = unionType({
+  name: "AddressPayload",
+  definition(t) {
+    t.members("Address", "ErrorObject")
+  }
+})

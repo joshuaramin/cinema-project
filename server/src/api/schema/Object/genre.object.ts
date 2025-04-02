@@ -10,3 +10,11 @@ export const GenreObject = objectType({
     t.Datetime("updated_at");
   },
 });
+
+export const GenrePagination = objectType({
+  name: "GenrePagination",
+  definition(t) {
+    t.list.field("item", { type: "Genre" });
+    t.implements("Pagination");
+  },
+});

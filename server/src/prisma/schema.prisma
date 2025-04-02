@@ -116,19 +116,20 @@ model Activity_Logs {
 model Genre {
   genre_id   String   @id @default(cuid())
   name       String   @db.VarChar(50)
+  slug       String
   is_deleted Boolean  @default(false)
   created_at DateTime @default(now()) @db.Timestamp(6)
   updated_at DateTime @default(now()) @db.Timestamp(6)
-  movies_id  String?
-  Movie      Movie?   @relation(fields: [movies_id], references: [movies_id])
+  Movie      Movie[]
 }
 
 model Movie {
   movies_id   String   @id @default(cuid())
   name        String   @db.VarChar(100)
-  slugify     String
+  slug        String
   url         String
   description String   @db.Text
+  year        Int
   is_deleted  Boolean  @default(false)
   created_at  DateTime @default(now()) @db.Timestamp(6)
   updated_at  DateTime @default(now()) @db.Timestamp(6)

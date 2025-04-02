@@ -1,6 +1,7 @@
 import * as ActivityLogs from "./activity.query.js";
 import * as Address from "./address.query.js";
 import * as Count from "./count.query.js";
+import * as Genre from "./genre.query.js";
 import * as Group from "./group.query.js";
 import * as Media from "./media.query.js";
 import * as Permission from "./permission.query.js";
@@ -13,6 +14,7 @@ export {
   ActivityLogs,
   Address,
   Count,
+  Genre,
   Group,
   Media,
   Permission,

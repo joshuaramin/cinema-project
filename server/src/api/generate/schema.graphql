@@ -55,6 +55,8 @@ type AddressPagination implements Pagination {
   totalPages: Int
 }
 
+union AddressPayload = Address | ErrorObject
+
 input AuthInput {
   email: String
   password: String
@@ -142,6 +144,21 @@ type Genre {
   updated_at: DateTime
 }
 
+input GenreInput {
+  name: String
+}
+
+type GenrePagination implements Pagination {
+  currentPage: Int
+  hasNextPage: Boolean
+  hasPrevPage: Boolean
+  item: [Genre]
+  totalItems: Int
+  totalPages: Int
+}
+
+union GenrePayload = ErrorObject | Genre
+
 type Group {
   created_at: DateTime
   description: String
@@ -155,6 +172,7 @@ type Group {
 input GroupInput {
   description: String
   name: String
+  year: Int
 }
 
 union GroupPayload = ErrorObject | Group
@@ -295,26 +313,42 @@ type MediaPagination implements Pagination {
   totalPages: Int
 }
 
+type MoveisPagination implements Pagination {
+  currentPage: Int
+  hasNextPage: Boolean
+  hasPrevPage: Boolean
+  item: [Movies]
+  totalItems: Int
+  totalPages: Int
+}
+
 type Movies {
   created_at: DateTime
-  descripion: String
+  description: String
   is_deleted: Boolean
   movies_id: ID
   name: String
   updated_at: DateTime
+  url: String
+  year: Int
 }
 
 input MoviesInput {
   description: String
   name: String
+  year: Int
 }
+
+union MoviesPayload = ErrorObject | Movies
 
 type Mutation {
   add_remove_permission_user_role(add: [String]!, removed: [String]!, user_role_id: ID!): Permission
   add_user_role(user_id: ID!, user_role_id: ID!): User_Role
   add_user_role_to_group(group_id: ID!, user_role_id: ID!): Group
-  create_address(input: AddressInput!, profile_id: ID!): Address
+  create_address(input: AddressInput!, profile_id: ID!): AddressPayload
+  create_genre(input: GenreInput): Genre
   create_group(input: GroupInput): GroupPayload
+  create_movies(file: Upload, input: MoviesInput): MoviesPayload
   create_role_permission(group_id: ID!, type: String!): PermissionPayload
   create_user_account(address: AddressInput!, input: UserInput!, user_role_id: ID!): UserPayload
   create_user_role(description: String, name: String!): UserRolePayload
@@ -419,6 +453,7 @@ type Query {
   countingRecords: count
   getAllActivityLogs(input: PaginationInput!): ActivityLogsPagination
   getAllAddressByUserId(input: PaginationInput, profile_id: ID!): AddressPagination
+  getAllGenre(input: PaginationInput, search: String): GenrePagination
   getAllGroup(search: String): [Group]
   getAllMedia(input: PaginationInput): MediaPagination
   getAllPermission: [Permission]

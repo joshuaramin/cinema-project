@@ -7,23 +7,38 @@ export const MoviesMutation = extendType({
   type: "Mutation",
   definition(t) {
     t.field("create_movies", {
-      type: "Movies",
+      type: "MoviesPayload",
       args: { input: "MoviesInput", file: "Upload" },
       resolve: async (_, { input, file }, { prisma }: Context) => {
-        const { createReadStream, filename } = await file;
+        const { createReadStream, filename, mimetype } = await file;
 
-        for(const key in input) {
-
+        for (const key in input) {
+          if (input.hasOwnProperty(key)) {
+            if (!input[key]) {
+              return {
+                __typename: "ErrorObject",
+                message: `${key} is required`,
+              };
+            }
+          }
         }
 
-        return await prisma.movie.create({
+        // console.log(await file);
+
+        const movies = await prisma.movie.create({
           data: {
             name: input.name,
-            slugify: Slugify(input.name),
+            year: input.year,
+            slug: Slugify(input.name),
             description: input.description,
-            url: await AWSUploader(createReadStream(), filename),
+            url: await AWSUploader(createReadStream, filename),
           },
         });
+
+        return {
+          __typename: "Movies",
+          ...movies,
+        };
       },
     });
   },

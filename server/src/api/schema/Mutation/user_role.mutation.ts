@@ -1,10 +1,7 @@
 import { extendType, idArg, nonNull, stringArg } from "nexus";
-import jsonwebtoken from "jsonwebtoken";
 import { Slugify } from "../../helpers/slugify.js";
 import Authorization from "../../helpers/authorization.js";
 import { Context } from "../types/index.js";
-
-const { verify } = jsonwebtoken;
 
 export const UserRoleMutation = extendType({
   type: "Mutation",
