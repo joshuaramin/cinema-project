@@ -60,6 +60,7 @@ export const MoviesInput = inputObjectType({
   definition(t) {
     t.string("name");
     t.string("description");
+    t.string("duration");
     t.int("year");
   },
 });

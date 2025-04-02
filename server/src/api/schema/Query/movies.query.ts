@@ -3,7 +3,7 @@ import { extendType, stringArg } from "nexus";
 export const MoviesQuery = extendType({
   type: "Query",
   definition(t) {
-    t.field("getAllMoveis", {
+    t.field("getAllMovies", {
       type: "MoveisPagination",
       args: { input: "PaginationInput", search: stringArg() },
       resolve: async (_, { input: { take, page }, search }) => {

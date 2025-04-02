@@ -128,6 +128,7 @@ model Movie {
   name        String   @db.VarChar(100)
   slug        String
   url         String
+  duration    String
   description String   @db.Text
   year        Int
   is_deleted  Boolean  @default(false)

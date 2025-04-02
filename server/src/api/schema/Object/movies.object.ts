@@ -7,6 +7,7 @@ export const MoviesObject = objectType({
     t.string("name");
     t.string("description");
     t.int("year");
+    t.Duration("duration");
     t.string("url");
     t.boolean("is_deleted");
     t.Datetime("created_at");

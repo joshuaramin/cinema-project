@@ -1,4 +1,5 @@
 import { extendType, stringArg } from "nexus";
+import { Context } from "../types/index.js";
 
 export const GenreQuery = extendType({
   type: "Query",
@@ -6,7 +7,11 @@ export const GenreQuery = extendType({
     t.field("getAllGenre", {
       type: "GenrePagination",
       args: { input: "PaginationInput", search: stringArg() },
-      resolve: async (_, { input: { take, page } }, search) => {
+      resolve: async (
+        _,
+        { input: { take, page }, search },
+        { prisma }: Context
+      ) => {
         const result = await prisma.genre.findMany({
           where: {
             name: {

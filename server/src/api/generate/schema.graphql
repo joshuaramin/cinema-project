@@ -325,6 +325,7 @@ type MoveisPagination implements Pagination {
 type Movies {
   created_at: DateTime
   description: String
+  duration: Duration
   is_deleted: Boolean
   movies_id: ID
   name: String
@@ -335,6 +336,7 @@ type Movies {
 
 input MoviesInput {
   description: String
+  duration: String
   name: String
   year: Int
 }
@@ -456,6 +458,7 @@ type Query {
   getAllGenre(input: PaginationInput, search: String): GenrePagination
   getAllGroup(search: String): [Group]
   getAllMedia(input: PaginationInput): MediaPagination
+  getAllMovies(input: PaginationInput, search: String): MoveisPagination
   getAllPermission: [Permission]
   getAllUser(input: PaginationInput!): UserPagination
   getAllUserRole(input: PaginationInput!, search: String): UserRolePagination

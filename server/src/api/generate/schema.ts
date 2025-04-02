@@ -638,6 +638,7 @@ export interface NexusGenInputs {
   }
   MoviesInput: { // input type
     description?: string | null; // String
+    duration?: string | null; // String
     name?: string | null; // String
     year?: number | null; // Int
   }
@@ -831,6 +832,7 @@ export interface NexusGenObjects {
   Movies: { // root type
     created_at?: NexusGenScalars['DateTime'] | null; // DateTime
     description?: string | null; // String
+    duration?: NexusGenScalars['Duration'] | null; // Duration
     is_deleted?: boolean | null; // Boolean
     movies_id?: string | null; // ID
     name?: string | null; // String
@@ -1019,6 +1021,7 @@ export interface NexusGenFieldTypes {
   Movies: { // field return type
     created_at: NexusGenScalars['DateTime'] | null; // DateTime
     description: string | null; // String
+    duration: NexusGenScalars['Duration'] | null; // Duration
     is_deleted: boolean | null; // Boolean
     movies_id: string | null; // ID
     name: string | null; // String
@@ -1068,6 +1071,7 @@ export interface NexusGenFieldTypes {
     getAllGenre: NexusGenRootTypes['GenrePagination'] | null; // GenrePagination
     getAllGroup: Array<NexusGenRootTypes['Group'] | null> | null; // [Group]
     getAllMedia: NexusGenRootTypes['MediaPagination'] | null; // MediaPagination
+    getAllMovies: NexusGenRootTypes['MoveisPagination'] | null; // MoveisPagination
     getAllPermission: Array<NexusGenRootTypes['Permission'] | null> | null; // [Permission]
     getAllUser: NexusGenRootTypes['UserPagination'] | null; // UserPagination
     getAllUserRole: NexusGenRootTypes['UserRolePagination'] | null; // UserRolePagination
@@ -1237,6 +1241,7 @@ export interface NexusGenFieldTypeNames {
   Movies: { // field return type name
     created_at: 'DateTime'
     description: 'String'
+    duration: 'Duration'
     is_deleted: 'Boolean'
     movies_id: 'ID'
     name: 'String'
@@ -1286,6 +1291,7 @@ export interface NexusGenFieldTypeNames {
     getAllGenre: 'GenrePagination'
     getAllGroup: 'Group'
     getAllMedia: 'MediaPagination'
+    getAllMovies: 'MoveisPagination'
     getAllPermission: 'Permission'
     getAllUser: 'UserPagination'
     getAllUserRole: 'UserRolePagination'
@@ -1442,6 +1448,10 @@ export interface NexusGenArgTypes {
     }
     getAllMedia: { // args
       input?: NexusGenInputs['PaginationInput'] | null; // PaginationInput
+    }
+    getAllMovies: { // args
+      input?: NexusGenInputs['PaginationInput'] | null; // PaginationInput
+      search?: string | null; // String
     }
     getAllUser: { // args
       input: NexusGenInputs['PaginationInput']; // PaginationInput!

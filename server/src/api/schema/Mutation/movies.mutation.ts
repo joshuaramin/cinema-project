@@ -22,13 +22,12 @@ export const MoviesMutation = extendType({
             }
           }
         }
-
-        // console.log(await file);
-
+        
         const movies = await prisma.movie.create({
           data: {
             name: input.name,
             year: input.year,
+            duration: input.duration,
             slug: Slugify(input.name),
             description: input.description,
             url: await AWSUploader(createReadStream, filename),
