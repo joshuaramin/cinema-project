@@ -40,3 +40,17 @@ export const ProfilePayload = unionType({
     t.members("Profile", "ErrorObject");
   },
 });
+
+export const MoviePayload = unionType({
+  name: "MoviePayload",
+  definition(t) {
+    t.members("Movies", "ErrorObject");
+  },
+});
+
+export const GenrePayload = unionType({
+  name: "GenrePayload",
+  definition(t) {
+    t.members("Genre", "ErrorObject");
+  },
+});

@@ -1,5 +1,5 @@
 import { objectType } from "nexus";
-import { prisma } from "../../helpers/server.js";
+import { Context } from "../types/index.js";
 
 export const GroupObjct = objectType({
   name: "Group",
@@ -12,7 +12,7 @@ export const GroupObjct = objectType({
     t.Datetime("updated_at");
     t.list.field("permission", {
       type: "Permission",
-      resolve: async ({ group_id }) => {
+      resolve: async ({ group_id }, {}, { prisma }: Context) => {
         return await prisma.permission.findMany({
           where: { Group: { some: { group_id } } },
         });

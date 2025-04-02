@@ -53,3 +53,11 @@ export const GroupInput = inputObjectType({
     t.string("description");
   },
 });
+
+export const MoviesInput = inputObjectType({
+  name: "MoviesInput",
+  definition(t) {
+    t.string("name");
+    t.string("description");
+  },
+});

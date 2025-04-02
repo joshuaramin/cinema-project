@@ -1,8 +1,8 @@
-import { extendType, idArg, list, nonNull, stringArg } from "nexus";
-import { prisma } from "../../helpers/server.js";
+import { extendType, idArg, nonNull, stringArg } from "nexus";
 import jsonwebtoken from "jsonwebtoken";
 import { Slugify } from "../../helpers/slugify.js";
 import Authorization from "../../helpers/authorization.js";
+import { Context } from "../types/index.js";
 
 const { verify } = jsonwebtoken;
 
@@ -16,7 +16,7 @@ export const UserRoleMutation = extendType({
         return Authorization(ctx);
       },
 
-      resolve: async (_, { name }) => {
+      resolve: async (_, { name }, { prisma }: Context) => {
         if (!name) {
           return {
             __typename: "ErrorObject",
@@ -42,7 +42,7 @@ export const UserRoleMutation = extendType({
       authorize: (parent, args, ctx) => {
         return Authorization(ctx);
       },
-      resolve: async (_, { user_role_id, user_id }) => {
+      resolve: async (_, { user_role_id, user_id }, { prisma }: Context) => {
         return await prisma.user_Role.update({
           where: { user_role_id },
           data: {

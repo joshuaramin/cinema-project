@@ -1,6 +1,6 @@
 import { extendType, idArg, nonNull } from "nexus";
-import { prisma } from "../../helpers/server.js";
 import Authorization from "../../helpers/authorization.js";
+import { Context } from "../types/index.js";
 
 export const AddressMutation = extendType({
   type: "Mutation",
@@ -11,20 +11,14 @@ export const AddressMutation = extendType({
       authorize: (parent, args, ctx) => {
         return Authorization(ctx);
       },
-      resolve: async (
-        _,
-        {
-          input: { address_line_1, address_line_2, city, country, zipcode },
-          profile_id,
-        }
-      ) => {
+      resolve: async (_, { input, profile_id }, { prisma }: Context) => {
         return await prisma.address.create({
           data: {
-            address_line_1,
-            address_line_2,
-            city,
-            country,
-            zipcode,
+            address_line_1: input.address_line_1,
+            address_line_2: input.address_line_2,
+            city: input.city,
+            country: input.country,
+            zipcode: input.zipcode,
             Profile: { connect: { profile_id } },
           },
         });
@@ -38,35 +32,19 @@ export const AddressMutation = extendType({
       },
       resolve: async (
         _,
-        {
-          address_id,
-          input: { address_line_1, address_line_2, city, country, zipcode },
-        }
+        { address_id, input },
+        { prisma }: Context
       ): Promise<any> => {
-        if (!address_line_1) {
-          return { message: "Address is required" };
-        }
-        if (!city) {
-          return { message: "City is required" };
-        }
-
-        if (!country) {
-          return { message: "Country is required" };
-        }
-
-        if (!zipcode) {
-          return { message: "zipcode is required" };
-        }
         const address = await prisma.address.update({
           where: {
             address_id,
           },
           data: {
-            address_line_1,
-            address_line_2,
-            city,
-            country,
-            zipcode,
+            address_line_1: input.address_line_1,
+            address_line_2: input.address_line_2,
+            city: input.city,
+            country: input.country,
+            zipcode: input.zipcode,
           },
         });
 
@@ -82,7 +60,7 @@ export const AddressMutation = extendType({
       authorize: (parent, args, ctx) => {
         return Authorization(ctx);
       },
-      resolve: async (_, { address_id }) => {
+      resolve: async (_, { address_id }, { prisma }: Context) => {
         return await prisma.address.update({
           where: {
             address_id,

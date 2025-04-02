@@ -632,6 +632,10 @@ export interface NexusGenInputs {
     description?: string | null; // String
     name?: string | null; // String
   }
+  MoviesInput: { // input type
+    description?: string | null; // String
+    name?: string | null; // String
+  }
   PaginationInput: { // input type
     page?: number | null; // Int
     take?: number | null; // Int

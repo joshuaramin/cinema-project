@@ -1,13 +1,12 @@
 import { extendType } from "nexus";
-import { prisma } from "../../helpers/server.js";
+import { Context } from "../types/index.js";
 
 export const CountQuery = extendType({
   type: "Query",
   definition(t) {
     t.field("countingRecords", {
       type: "count",
-      resolve: async (): Promise<any> => {
-  
+      resolve: async ({}, {}, { prisma }: Context): Promise<any> => {
         const users = await prisma.user.count({
           where: { is_deleted: false },
         });
@@ -19,8 +18,6 @@ export const CountQuery = extendType({
         const group = await prisma.group.count({
           where: { is_deleted: false },
         });
-
-      
 
         return {
           users,

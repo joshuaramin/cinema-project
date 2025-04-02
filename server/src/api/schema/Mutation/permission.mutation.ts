@@ -1,7 +1,6 @@
 import { extendType, idArg, list, nonNull, stringArg } from "nexus";
-import { prisma } from "../../helpers/server.js";
 import Authorization from "../../helpers/authorization.js";
-
+import { Context } from "../types/index.js";
 
 export const PermissionMutation = extendType({
   type: "Mutation",
@@ -12,7 +11,7 @@ export const PermissionMutation = extendType({
         return Authorization(ctx);
       },
       args: { type: nonNull(stringArg()), group_id: nonNull(idArg()) },
-      resolve: async (_, { type, group_id }) => {
+      resolve: async (_, { type, group_id }, { prisma }: Context) => {
         if (!type) {
           return {
             __typename: "ErrorObject",
@@ -48,7 +47,7 @@ export const PermissionMutation = extendType({
       authorize: (parent, args, ctx) => {
         return Authorization(ctx);
       },
-      resolve: async (_, { add, removed, user_role_id }) => {
+      resolve: async (_, { add, removed, user_role_id }, { prisma }: Context) => {
         return await prisma.user_Role.update({
           data: {
             Permission: {

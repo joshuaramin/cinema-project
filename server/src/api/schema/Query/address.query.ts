@@ -1,5 +1,5 @@
 import { extendType, idArg, nonNull } from "nexus";
-import { prisma } from "../../helpers/server.js";
+import { Context } from "../types/index.js";
 
 export const AddressQuery = extendType({
   type: "Query",
@@ -7,7 +7,7 @@ export const AddressQuery = extendType({
     t.field("getAllAddressByUserId", {
       type: "AddressPagination",
       args: { profile_id: nonNull(idArg()), input: "PaginationInput" },
-      resolve: async (_, { profile_id, input: { page, take } }) => {
+      resolve: async (_, { profile_id, input: { page, take } }, { prisma}: Context) => {
         const result = await prisma.address.findMany({
           where: {
             is_deleted: false,

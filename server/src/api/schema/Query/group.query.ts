@@ -1,5 +1,5 @@
 import { extendType, stringArg } from "nexus";
-import { prisma } from "../../helpers/server.js";
+import { Context } from "../types/index.js";
 
 export const GroupQuery = extendType({
   type: "Query",
@@ -7,7 +7,7 @@ export const GroupQuery = extendType({
     t.list.field("getAllGroup", {
       type: "Group",
       args: { search: stringArg() },
-      resolve: async (_, { search }) => {
+      resolve: async (_, { search }, { prisma }: Context) => {
         return await prisma.group.findMany({
           where: {
             name: {

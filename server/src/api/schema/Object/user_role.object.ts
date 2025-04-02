@@ -1,5 +1,5 @@
 import { objectType } from "nexus";
-import { prisma } from "../../helpers/server.js";
+import { Context } from "../types/index.js";
 
 export const UserRole = objectType({
   name: "User_Role",
@@ -13,7 +13,7 @@ export const UserRole = objectType({
     t.Datetime("updated_at");
     t.list.field("permission", {
       type: "Permission",
-      resolve: async ({ user_role_id }) => {
+      resolve: async ({ user_role_id }, {}, { prisma }: Context) => {
         return await prisma.permission.findMany({
           where: {
             User_Role: {
@@ -27,7 +27,7 @@ export const UserRole = objectType({
     });
     t.list.field("user", {
       type: "User",
-      resolve: async ({ user_role_id }) => {
+      resolve: async ({ user_role_id }, {}, { prisma }: Context) => {
         return await prisma.user.findMany({
           where: {
             UserRole: {

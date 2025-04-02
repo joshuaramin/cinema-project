@@ -1,6 +1,5 @@
 import { extendType, idArg, nonNull, stringArg } from "nexus";
-import { prisma } from "../../helpers/server.js";
-import { ResultUserRole, User_Role } from "../types/index.js";
+import { Context, ResultUserRole, User_Role } from "../types/index.js";
 
 export const UserRoleQuery = extendType({
   type: "Query",
@@ -10,7 +9,8 @@ export const UserRoleQuery = extendType({
       args: { input: nonNull("PaginationInput"), search: stringArg() },
       resolve: async (
         _,
-        { input: { take, page }, search }
+        { input: { take, page }, search },
+        { prisma }: Context
       ): Promise<ResultUserRole> => {
         const result = await prisma.user_Role.findMany({
           where: {
@@ -40,7 +40,7 @@ export const UserRoleQuery = extendType({
     t.field("getUserRoleBySlug", {
       type: "User_Role",
       args: { slug: nonNull(stringArg()) },
-      resolve: async (_, { slug }) => {
+      resolve: async (_, { slug }, { prisma }: Context) => {
         return await prisma.user_Role.findFirst({
           where: {
             slug,

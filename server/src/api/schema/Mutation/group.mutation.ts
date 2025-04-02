@@ -1,7 +1,6 @@
 import { extendType, idArg, nonNull } from "nexus";
-import { prisma } from "../../helpers/server.js";
 import Authorization from "../../helpers/authorization.js";
-
+import { Context } from "../types/index.js";
 
 export const GroupMutation = extendType({
   type: "Mutation",
@@ -12,7 +11,7 @@ export const GroupMutation = extendType({
       authorize: (parent, args, ctx) => {
         return Authorization(ctx);
       },
-      resolve: async (_, { group_id, user_role_id }) => {
+      resolve: async (_, { group_id, user_role_id }, { prisma }: Context) => {
         return await prisma.group.update({
           where: {
             group_id,
@@ -33,7 +32,7 @@ export const GroupMutation = extendType({
       authorize: (parent, args, ctx) => {
         return Authorization(ctx);
       },
-      resolve: async (_, { input }) => {
+      resolve: async (_, { input }, { prisma }: Context) => {
         for (const key in input) {
           if (input.hasOwnProperty(key)) {
             if (!input[key]) {
@@ -85,7 +84,7 @@ export const GroupMutation = extendType({
       authorize: (parent, args, ctx) => {
         return Authorization(ctx);
       },
-      resolve: async (_, { input, group_id }) => {
+      resolve: async (_, { input, group_id }, { prisma }: Context) => {
         for (const key in input) {
           if (input.hasOwnProperty(key)) {
             if (!input[key]) {
@@ -113,7 +112,7 @@ export const GroupMutation = extendType({
       authorize: (parent, args, ctx) => {
         return Authorization(ctx);
       },
-      resolve: async (_, { group_id }) => {
+      resolve: async (_, { group_id }, { prisma }: Context) => {
         return await prisma.group.update({
           data: {
             is_deleted: true,

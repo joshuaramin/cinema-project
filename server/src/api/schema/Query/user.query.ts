@@ -1,6 +1,5 @@
 import { extendType, idArg, nonNull } from "nexus";
-import { prisma } from "../../helpers/server.js";
-import { ResultUser } from "../types/index.js";
+import { Context, ResultUser } from "../types/index.js";
 
 export const UserQuery = extendType({
   type: "Query",
@@ -8,7 +7,11 @@ export const UserQuery = extendType({
     t.field("getAllUser", {
       type: "UserPagination",
       args: { input: nonNull("PaginationInput") },
-      resolve: async (_, { input: { take, page } }): Promise<ResultUser> => {
+      resolve: async (
+        _,
+        { input: { take, page } },
+        { prisma }: Context
+      ): Promise<ResultUser> => {
         const result = await prisma.user.findMany({
           where: {
             is_deleted: false,
@@ -31,7 +34,7 @@ export const UserQuery = extendType({
     t.field("getUserById", {
       type: "User",
       args: { user_id: nonNull(idArg()) },
-      resolve: async (_, { user_id }) => {
+      resolve: async (_, { user_id }, { prisma }: Context) => {
         return await prisma.user.findFirst({
           where: { user_id },
         });

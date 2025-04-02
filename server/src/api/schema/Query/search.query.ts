@@ -1,5 +1,5 @@
 import { extendType, stringArg } from "nexus";
-import { prisma } from "../../helpers/server.js";
+import { Context } from "../types/index.js";
 
 export const SearchQuery = extendType({
   type: "Query",
@@ -7,7 +7,7 @@ export const SearchQuery = extendType({
     t.field("getCentralSearch", {
       type: "CentralSearch",
       args: { search: stringArg() },
-      resolve: async (_, { search }): Promise<any> => {
+      resolve: async (_, { search }, { prisma }: Context): Promise<any> => {
         const users = await prisma.user.findMany({
           where: {
             is_deleted: false,

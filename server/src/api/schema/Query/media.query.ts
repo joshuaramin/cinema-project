@@ -1,5 +1,5 @@
 import { extendType } from "nexus";
-import { prisma } from "../../helpers/server.js";
+import { Context } from "../types/index.js";
 
 export const MediaQuery = extendType({
   type: "Query",
@@ -7,7 +7,7 @@ export const MediaQuery = extendType({
     t.field("getAllMedia", {
       type: "MediaPagination",
       args: { input: "PaginationInput" },
-      resolve: async (_, { input: { page, take } }) => {
+      resolve: async (_, { input: { page, take } }, { prisma }: Context) => {
         const result = await prisma.media.findMany({
           where: { is_deleted: false },
           orderBy: {

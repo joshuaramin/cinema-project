@@ -1,5 +1,5 @@
 import { extendType, nonNull } from "nexus";
-import { prisma } from "../../helpers/server.js";
+import { Context } from "../types/index.js";
 
 export const ActivitLogsQuery = extendType({
   type: "Query",
@@ -7,7 +7,7 @@ export const ActivitLogsQuery = extendType({
     t.field("getAllActivityLogs", {
       type: "ActivityLogsPagination",
       args: { input: nonNull("PaginationInput") },
-      resolve: async (_, { input: { take, page } }) => {
+      resolve: async (_, { input: { take, page } }, { prisma }: Context) => {
         const result = await prisma.activity_Logs.findMany();
         const offset = (page - 1) * take;
         const item = result.slice(offset, offset + take);

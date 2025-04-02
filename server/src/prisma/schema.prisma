@@ -124,10 +124,11 @@ model Genre {
 }
 
 model Movie {
-  movies_id   String   @id
+  movies_id   String   @id @default(cuid())
   name        String   @db.VarChar(100)
+  slugify     String
   url         String
-  description String
+  description String   @db.Text
   is_deleted  Boolean  @default(false)
   created_at  DateTime @default(now()) @db.Timestamp(6)
   updated_at  DateTime @default(now()) @db.Timestamp(6)

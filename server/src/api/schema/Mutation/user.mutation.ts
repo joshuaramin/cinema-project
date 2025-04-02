@@ -1,8 +1,8 @@
-import { extendType, idArg, nonNull, stringArg } from "nexus";
-import { prisma } from "../../helpers/server.js";
+import { extendType, idArg, nonNull } from "nexus";
 import generateRandom from "../../helpers/generateRandom.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+import { Context } from "../types/index.js";
 
 const { sign } = jwt;
 export const UserMutation = extendType({
@@ -17,19 +17,12 @@ export const UserMutation = extendType({
       },
       resolve: async (
         _,
-        {
-          input: {
-            email,
-            password,
-            profile: { first_name, contact_no, last_name },
-          },
-          address: { address_line_1, address_line_2, city, country, zipcode },
-          user_role_id,
-        }
+        { input, address, user_role_id },
+        { prisma }: Context
       ) => {
         const userEmail = await prisma.user.findUnique({
           where: {
-            email,
+            email: input.email,
           },
         });
 
@@ -43,20 +36,20 @@ export const UserMutation = extendType({
         const user = await prisma.user.create({
           data: {
             account_no: generateRandom(12),
-            email,
-            password: await bcrypt.hash(password, 12),
+            email: input.email,
+            password: await bcrypt.hash(input.password, 12),
             Profile: {
               create: {
-                contact_no,
-                first_name,
-                last_name,
+                contact_no: input.profile.contact_no,
+                first_name: input.profile.first_name,
+                last_name: input.profile.last_name,
                 Address: {
                   create: {
-                    address_line_1,
-                    address_line_2,
-                    city,
-                    country,
-                    zipcode,
+                    address_line_1: address.address_line_1,
+                    address_line_2: address.address_line_2,
+                    city: address.city,
+                    country: address.country,
+                    zipcode: address.zipcode,
                   },
                 },
               },
@@ -74,7 +67,11 @@ export const UserMutation = extendType({
     t.field("login", {
       type: "Credentials",
       args: { input: "AuthInput" },
-      resolve: async (_, { input }, { req, res }): Promise<any> => {
+      resolve: async (
+        _,
+        { input },
+        { req, res, prisma }: Context
+      ): Promise<any> => {
         return await prisma.$transaction(async () => {
           for (const key in input) {
             if (input.hasOwnProperty(key)) {
@@ -134,7 +131,7 @@ export const UserMutation = extendType({
             }
           );
 
-          res.cookie("access_token", token, {
+          res.cookies("access_token", token, {
             secure: true,
             httpOnly: false,
             sameSite: "none",

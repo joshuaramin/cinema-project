@@ -1,6 +1,6 @@
 import { extendType } from "nexus";
-import { prisma } from "../../helpers/server.js";
 import Authorization from "../../helpers/authorization.js";
+import { Context } from "../types/index.js";
 
 export const PermissionQuery = extendType({
   type: "Query",
@@ -10,7 +10,7 @@ export const PermissionQuery = extendType({
       authorize: (parents, args, ctx) => {
         return Authorization(ctx);
       },
-      resolve: async () => {
+      resolve: async ({}, {}, { prisma }: Context) => {
         return await prisma.permission.findMany();
       },
     });

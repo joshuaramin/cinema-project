@@ -1,5 +1,5 @@
 import { objectType } from "nexus";
-import { prisma } from "../../helpers/server.js";
+import { Context } from "../types/index.js";
 
 export const AddressObject = objectType({
   name: "Address",
@@ -14,7 +14,7 @@ export const AddressObject = objectType({
     t.Datetime("updated_at");
     t.field("profile", {
       type: "Profile",
-      resolve: async ({ address_id }) => {
+      resolve: async ({ address_id }, {}, { prisma }: Context) => {
         return await prisma.profile.findFirst({
           where: { Address: { some: { address_id } } },
         });
