@@ -1,4 +1,4 @@
-import { extendType, stringArg } from "nexus";
+import { extendType, idArg, nonNull, stringArg } from "nexus";
 import { Context } from "../types/index.js";
 
 export const GenreQuery = extendType({
@@ -35,6 +35,15 @@ export const GenreQuery = extendType({
           hasNextPage: page < Math.ceil(result.length / take),
           hasPrevPage: page > 1,
         };
+      },
+    });
+    t.field("getGenreById", {
+      type: "Genre",
+      args: { genre_id: nonNull(idArg()) },
+      resolve: async (_, { genre_id }, { prisma }: Context) => {
+        return await prisma.genre.findFirst({
+          where: { genre_id },
+        });
       },
     });
   },

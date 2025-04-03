@@ -1,12 +1,21 @@
-import { extendType, stringArg } from "nexus";
+import { extendType, idArg, nonNull, stringArg } from "nexus";
+import { Context } from "../types/index.js";
+import Authorization from "../../helpers/authorization.js";
 
 export const MoviesQuery = extendType({
   type: "Query",
   definition(t) {
     t.field("getAllMovies", {
-      type: "MoveisPagination",
+      type: "MoviesPagination",
+      authorize: async ({}, {}, ctx) => {
+        return Authorization(ctx);
+      },
       args: { input: "PaginationInput", search: stringArg() },
-      resolve: async (_, { input: { take, page }, search }) => {
+      resolve: async (
+        _,
+        { input: { take, page }, search },
+        { prisma }: Context
+      ) => {
         const result = await prisma.movie.findMany({
           where: {
             name: {
@@ -30,6 +39,15 @@ export const MoviesQuery = extendType({
           hasNextPage: page < Math.ceil(result.length / take),
           hasPrevPage: page > 1,
         };
+      },
+    });
+    t.field("getMoviesById", {
+      type: "Movies",
+      args: { movies_id: nonNull(idArg()) },
+      resolve: async (_, { movies_id }, { prisma }: Context) => {
+        return await prisma.movie.findFirst({
+          where: { movies_id },
+        });
       },
     });
   },

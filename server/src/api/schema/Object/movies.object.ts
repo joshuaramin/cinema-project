@@ -1,4 +1,5 @@
 import { objectType } from "nexus";
+import { Context } from "../types/index.js";
 
 export const MoviesObject = objectType({
   name: "Movies",
@@ -12,11 +13,21 @@ export const MoviesObject = objectType({
     t.boolean("is_deleted");
     t.Datetime("created_at");
     t.Datetime("updated_at");
+    t.list.field("genre", {
+      type: "Genre",
+      resolve: async ({ movies_id }, {}, { prisma }: Context) => {
+        return await prisma.genre.findMany({
+          where: {
+            Movie: { some: { movies_id } },
+          },
+        });
+      },
+    });
   },
 });
 
 export const MoviesPagination = objectType({
-  name: "MoveisPagination",
+  name: "MoviesPagination",
   definition(t) {
     t.list.field("item", { type: "Movies" });
     t.implements("Pagination");

@@ -13,7 +13,7 @@ export const MoviesMutation = extendType({
         file: "Upload",
         genre_id: nonNull(list(idArg())),
       },
-      resolve: async (_, { input, file, genre_id}, { prisma }: Context) => {
+      resolve: async (_, { input, file, genre_id }, { prisma }: Context) => {
         const { createReadStream, filename, mimetype } = await file;
 
         for (const key in input) {
@@ -36,8 +36,10 @@ export const MoviesMutation = extendType({
             description: input.description,
             url: await AWSUploader(createReadStream, filename),
             Genre: {
-              connect: 
-            }
+              connect: genre_id.map((genre_id) => ({
+                genre_id,
+              })),
+            },
           },
         });
 

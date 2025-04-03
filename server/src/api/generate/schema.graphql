@@ -140,6 +140,7 @@ type Genre {
   created_at: DateTime
   genre_id: ID
   is_deleted: Boolean
+  movies(input: PaginationInput, search: String): MoviesPagination
   name: String
   updated_at: DateTime
 }
@@ -313,19 +314,11 @@ type MediaPagination implements Pagination {
   totalPages: Int
 }
 
-type MoveisPagination implements Pagination {
-  currentPage: Int
-  hasNextPage: Boolean
-  hasPrevPage: Boolean
-  item: [Movies]
-  totalItems: Int
-  totalPages: Int
-}
-
 type Movies {
   created_at: DateTime
   description: String
   duration: Duration
+  genre: [Genre]
   is_deleted: Boolean
   movies_id: ID
   name: String
@@ -341,6 +334,15 @@ input MoviesInput {
   year: Int
 }
 
+type MoviesPagination implements Pagination {
+  currentPage: Int
+  hasNextPage: Boolean
+  hasPrevPage: Boolean
+  item: [Movies]
+  totalItems: Int
+  totalPages: Int
+}
+
 union MoviesPayload = ErrorObject | Movies
 
 type Mutation {
@@ -350,16 +352,18 @@ type Mutation {
   create_address(input: AddressInput!, profile_id: ID!): AddressPayload
   create_genre(input: GenreInput): Genre
   create_group(input: GroupInput): GroupPayload
-  create_movies(file: Upload, input: MoviesInput): MoviesPayload
+  create_movies(file: Upload, genre_id: [ID]!, input: MoviesInput): MoviesPayload
   create_role_permission(group_id: ID!, type: String!): PermissionPayload
   create_user_account(address: AddressInput!, input: UserInput!, user_role_id: ID!): UserPayload
   create_user_role(description: String, name: String!): UserRolePayload
   deleteMedia(media_id: ID!): Media
   delete_address(address_id: ID!): Address
   delete_group(group_id: ID!): Group
+  delete_movies(movies_id: ID!): Movies
   login(input: AuthInput): Credentials
   update_address(address_id: ID!, input: AddressInput!): Address
   update_group(group_id: ID!, input: GroupInput): GroupPayload
+  update_movies(file: Upload, input: MoviesInput, movies_id: ID!): MoviesPayload
   update_profile(input: ProfileInput!, profile_id: ID!): ProfilePayload
 }
 
@@ -458,11 +462,13 @@ type Query {
   getAllGenre(input: PaginationInput, search: String): GenrePagination
   getAllGroup(search: String): [Group]
   getAllMedia(input: PaginationInput): MediaPagination
-  getAllMovies(input: PaginationInput, search: String): MoveisPagination
+  getAllMovies(input: PaginationInput, search: String): MoviesPagination
   getAllPermission: [Permission]
   getAllUser(input: PaginationInput!): UserPagination
   getAllUserRole(input: PaginationInput!, search: String): UserRolePagination
   getCentralSearch(search: String): CentralSearch
+  getGenreById(genre_id: ID!): Genre
+  getMoviesById(movies_id: ID!): Movies
   getUserById(user_id: ID!): User
   getUserRoleBySlug(slug: String!): User_Role
 }

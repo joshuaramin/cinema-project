@@ -1,5 +1,4 @@
 import { extendType, idArg, nonNull } from "nexus";
-import { prisma } from "../../helpers/server.js";
 import Authorization from "../../helpers/authorization.js";
 import { Context } from "../types/index.js";
 
