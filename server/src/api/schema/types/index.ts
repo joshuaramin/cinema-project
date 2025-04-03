@@ -1,6 +1,15 @@
 import { PrismaClient } from "@prisma/client";
 import { Request, Response } from "express";
 
+export interface SendGrid {
+  to: string;
+  from: string;
+  bcc?: string[];
+  cc?: string[];
+  subject: string;
+  html: string;
+}
+
 export interface User {
   user_id?: string;
   account_no?: string;
