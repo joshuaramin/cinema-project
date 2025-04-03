@@ -1036,7 +1036,7 @@ export interface NexusGenFieldTypes {
     add_user_role: NexusGenRootTypes['User_Role'] | null; // User_Role
     add_user_role_to_group: NexusGenRootTypes['Group'] | null; // Group
     create_address: NexusGenRootTypes['AddressPayload'] | null; // AddressPayload
-    create_genre: NexusGenRootTypes['Genre'] | null; // Genre
+    create_genre: NexusGenRootTypes['GenrePayload'] | null; // GenrePayload
     create_group: NexusGenRootTypes['GroupPayload'] | null; // GroupPayload
     create_movies: NexusGenRootTypes['MoviesPayload'] | null; // MoviesPayload
     create_role_permission: NexusGenRootTypes['PermissionPayload'] | null; // PermissionPayload
@@ -1044,10 +1044,12 @@ export interface NexusGenFieldTypes {
     create_user_role: NexusGenRootTypes['UserRolePayload'] | null; // UserRolePayload
     deleteMedia: NexusGenRootTypes['Media'] | null; // Media
     delete_address: NexusGenRootTypes['Address'] | null; // Address
+    delete_genre: NexusGenRootTypes['Genre'] | null; // Genre
     delete_group: NexusGenRootTypes['Group'] | null; // Group
     delete_movies: NexusGenRootTypes['Movies'] | null; // Movies
     login: NexusGenRootTypes['Credentials'] | null; // Credentials
     update_address: NexusGenRootTypes['Address'] | null; // Address
+    update_genre: NexusGenRootTypes['GenrePayload'] | null; // GenrePayload
     update_group: NexusGenRootTypes['GroupPayload'] | null; // GroupPayload
     update_movies: NexusGenRootTypes['MoviesPayload'] | null; // MoviesPayload
     update_profile: NexusGenRootTypes['ProfilePayload'] | null; // ProfilePayload
@@ -1262,7 +1264,7 @@ export interface NexusGenFieldTypeNames {
     add_user_role: 'User_Role'
     add_user_role_to_group: 'Group'
     create_address: 'AddressPayload'
-    create_genre: 'Genre'
+    create_genre: 'GenrePayload'
     create_group: 'GroupPayload'
     create_movies: 'MoviesPayload'
     create_role_permission: 'PermissionPayload'
@@ -1270,10 +1272,12 @@ export interface NexusGenFieldTypeNames {
     create_user_role: 'UserRolePayload'
     deleteMedia: 'Media'
     delete_address: 'Address'
+    delete_genre: 'Genre'
     delete_group: 'Group'
     delete_movies: 'Movies'
     login: 'Credentials'
     update_address: 'Address'
+    update_genre: 'GenrePayload'
     update_group: 'GroupPayload'
     update_movies: 'MoviesPayload'
     update_profile: 'ProfilePayload'
@@ -1431,6 +1435,9 @@ export interface NexusGenArgTypes {
     delete_address: { // args
       address_id: string; // ID!
     }
+    delete_genre: { // args
+      genre_id: string; // ID!
+    }
     delete_group: { // args
       group_id: string; // ID!
     }
@@ -1443,6 +1450,10 @@ export interface NexusGenArgTypes {
     update_address: { // args
       address_id: string; // ID!
       input: NexusGenInputs['AddressInput']; // AddressInput!
+    }
+    update_genre: { // args
+      genre_id: string; // ID!
+      input?: NexusGenInputs['GenreInput'] | null; // GenreInput
     }
     update_group: { // args
       group_id: string; // ID!

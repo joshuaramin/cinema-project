@@ -350,7 +350,7 @@ type Mutation {
   add_user_role(user_id: ID!, user_role_id: ID!): User_Role
   add_user_role_to_group(group_id: ID!, user_role_id: ID!): Group
   create_address(input: AddressInput!, profile_id: ID!): AddressPayload
-  create_genre(input: GenreInput): Genre
+  create_genre(input: GenreInput): GenrePayload
   create_group(input: GroupInput): GroupPayload
   create_movies(file: Upload, genre_id: [ID]!, input: MoviesInput): MoviesPayload
   create_role_permission(group_id: ID!, type: String!): PermissionPayload
@@ -358,10 +358,12 @@ type Mutation {
   create_user_role(description: String, name: String!): UserRolePayload
   deleteMedia(media_id: ID!): Media
   delete_address(address_id: ID!): Address
+  delete_genre(genre_id: ID!): Genre
   delete_group(group_id: ID!): Group
   delete_movies(movies_id: ID!): Movies
   login(input: AuthInput): Credentials
   update_address(address_id: ID!, input: AddressInput!): Address
+  update_genre(genre_id: ID!, input: GenreInput): GenrePayload
   update_group(group_id: ID!, input: GroupInput): GroupPayload
   update_movies(file: Upload, input: MoviesInput, movies_id: ID!): MoviesPayload
   update_profile(input: ProfileInput!, profile_id: ID!): ProfilePayload
