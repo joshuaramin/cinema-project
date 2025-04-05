@@ -13,6 +13,7 @@ export const LoginMutation: TypedDocumentNode = gql`
             last_name
           }
           user_role {
+            name
             permission {
               type
             }

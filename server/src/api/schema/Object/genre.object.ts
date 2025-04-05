@@ -1,4 +1,5 @@
 import { objectType, stringArg } from "nexus";
+import { Context } from "../types/index.js";
 
 export const GenreObject = objectType({
   name: "Genre",
@@ -8,10 +9,26 @@ export const GenreObject = objectType({
     t.boolean("is_deleted");
     t.Datetime("created_at");
     t.Datetime("updated_at");
+    t.int("totalMovies", {
+      resolve: async ({ genre_id }, {}, { prisma }: Context) => {
+        return await prisma.movie.count({
+          where: {
+            is_deleted: false,
+            Genre: {
+              some: { genre_id },
+            },
+          },
+        });
+      },
+    });
     t.field("movies", {
       type: "MoviesPagination",
       args: { input: "PaginationInput", search: stringArg() },
-      resolve: async (_, { input: { take, page }, search }) => {
+      resolve: async (
+        { genre_id },
+        { input: { take, page }, search },
+        { prisma }: Context
+      ) => {
         const result = await prisma.movie.findMany({
           where: {
             name: {
@@ -19,6 +36,11 @@ export const GenreObject = objectType({
               mode: "insensitive",
             },
             is_deleted: false,
+            Genre: {
+              some: {
+                genre_id,
+              },
+            },
           },
         });
 

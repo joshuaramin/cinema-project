@@ -13,6 +13,13 @@ export const MoviesObject = objectType({
     t.boolean("is_deleted");
     t.Datetime("created_at");
     t.Datetime("updated_at");
+    t.int("totalGenre", {
+      resolve: async ({ movies_id }) => {
+        return await prisma.genre.count({
+          where: { Movie: { some: { movies_id } } },
+        });
+      },
+    });
     t.list.field("genre", {
       type: "Genre",
       resolve: async ({ movies_id }, {}, { prisma }: Context) => {

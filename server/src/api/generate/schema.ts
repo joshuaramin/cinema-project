@@ -857,6 +857,7 @@ export interface NexusGenObjects {
     updated_at?: NexusGenScalars['DateTime'] | null; // DateTime
   }
   Query: {};
+  Subscription: {};
   User: { // root type
     account_no?: string | null; // String
     created_at?: NexusGenScalars['DateTime'] | null; // DateTime
@@ -974,6 +975,7 @@ export interface NexusGenFieldTypes {
     is_deleted: boolean | null; // Boolean
     movies: NexusGenRootTypes['MoviesPagination'] | null; // MoviesPagination
     name: string | null; // String
+    totalMovies: number | null; // Int
     updated_at: NexusGenScalars['DateTime'] | null; // DateTime
   }
   GenrePagination: { // field return type
@@ -1019,6 +1021,7 @@ export interface NexusGenFieldTypes {
     is_deleted: boolean | null; // Boolean
     movies_id: string | null; // ID
     name: string | null; // String
+    totalGenre: number | null; // Int
     updated_at: NexusGenScalars['DateTime'] | null; // DateTime
     url: string | null; // String
     year: number | null; // Int
@@ -1086,6 +1089,10 @@ export interface NexusGenFieldTypes {
     getMoviesById: NexusGenRootTypes['Movies'] | null; // Movies
     getUserById: NexusGenRootTypes['User'] | null; // User
     getUserRoleBySlug: NexusGenRootTypes['User_Role'] | null; // User_Role
+  }
+  Subscription: { // field return type
+    GenreSubscriptions: NexusGenRootTypes['Genre'] | null; // Genre
+    MoviesSubscriptions: NexusGenRootTypes['Movies'] | null; // Movies
   }
   User: { // field return type
     account_no: string | null; // String
@@ -1202,6 +1209,7 @@ export interface NexusGenFieldTypeNames {
     is_deleted: 'Boolean'
     movies: 'MoviesPagination'
     name: 'String'
+    totalMovies: 'Int'
     updated_at: 'DateTime'
   }
   GenrePagination: { // field return type name
@@ -1247,6 +1255,7 @@ export interface NexusGenFieldTypeNames {
     is_deleted: 'Boolean'
     movies_id: 'ID'
     name: 'String'
+    totalGenre: 'Int'
     updated_at: 'DateTime'
     url: 'String'
     year: 'Int'
@@ -1314,6 +1323,10 @@ export interface NexusGenFieldTypeNames {
     getMoviesById: 'Movies'
     getUserById: 'User'
     getUserRoleBySlug: 'User_Role'
+  }
+  Subscription: { // field return type name
+    GenreSubscriptions: 'Genre'
+    MoviesSubscriptions: 'Movies'
   }
   User: { // field return type name
     account_no: 'String'

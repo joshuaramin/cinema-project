@@ -6,6 +6,7 @@ import ProfilePage from './profile/page';
 import Image from 'next/image'
 import Logo from '@/public/logo.png'
 import Search from '@/components/search/search';
+import SidebarURL from '@/lib/util/url';
 export default function Sidebar() {
     return (
         <div className={styles.container}>
@@ -16,13 +17,7 @@ export default function Sidebar() {
                 <Search />
             </div>
             <div className={styles.sidebar}>
-                <ButtonLink icon={TbLayoutDashboard} name='Overview' url='/central/overview' />
-                <ButtonLink icon={TbImageInPicture} name='Blog Post' url='/central/blog-post' />
-                <ButtonLink icon={TbBriefcase2} name='Job Post' url='/central/job-post' />
-                <ButtonLink icon={TbCalendarMonth} name='Events' url='/central/events' />
-                <ButtonLink icon={TbPhotoScan} name='Media' url='/central/media' />
-                <ButtonLink icon={TbAdjustmentsHorizontal} name='Maintenance' url='/central/maintenance' />
-                <ButtonLink icon={TbSettings} name='Settings' url='/central/settings' />
+                <SidebarURL />
             </div>
             <ProfilePage />
         </div>

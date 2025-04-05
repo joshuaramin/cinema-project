@@ -56,25 +56,6 @@ export default function Event() {
         <div className={styles.container}>
             {/* <MiniCalendar /> */}
             <Calendar />
-            <div className={styles.events}>
-                {events.map(({ date, id, location, description, name, tags }) => (
-                    <div className={styles.eventCard} key={id}>
-                        {/* <div className={styles.date}>
-                            <span className={OpenSansSemiBold.className}>{format(new Date(date), "dd")}</span>
-                        </div> */}
-                        <div>
-                            <div className={styles.info}>
-                                <h2 className={OpenSansSemiBold.className}>{name}</h2>
-                                <span className={OpenSansRegular.className}>{description}</span>
-                            </div>
-                            <div className={styles.date}>
-                                <TbCalendarEvent size={18} />
-                                <span className={OpenSansRegular.className}>{format(new Date(date), "MMMM dd, yyyy")}</span>
-                            </div>
-                        </div>
-                    </div>
-                ))}
-            </div>
         </div>
     )
 }

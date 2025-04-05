@@ -58,6 +58,7 @@ export default function Login() {
                             last_name: entry.profile.last_name
                         },
                         user_role: {
+                            name: entry.user_role.name,
                             permission: permission
                         }
                     })

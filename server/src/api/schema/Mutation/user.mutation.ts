@@ -131,7 +131,7 @@ export const UserMutation = extendType({
             }
           );
 
-          res.cookies("access_token", token, {
+          res.cookie("access_token", token, {
             secure: true,
             httpOnly: false,
             sameSite: "none",

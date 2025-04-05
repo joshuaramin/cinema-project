@@ -7,9 +7,6 @@ export const MoviesQuery = extendType({
   definition(t) {
     t.field("getAllMovies", {
       type: "MoviesPagination",
-      authorize: async ({}, {}, ctx) => {
-        return Authorization(ctx);
-      },
       args: { input: "PaginationInput", search: stringArg() },
       resolve: async (
         _,

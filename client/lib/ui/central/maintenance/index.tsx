@@ -22,12 +22,9 @@ export default function MaintenanceIndex() {
                 transition={{
                     delay: 1 * 0.2, duration: 1
                 }}>
-                <MaintenanceCard name='Category' url='/central/maintenance/category' count={data?.countingRecords?.category} />
-                <MaintenanceCard name='Country' url='/central/maintenance/country' count={data?.countingRecords?.country} />
-                <MaintenanceCard name='Position' url='/central/maintenance/position' count={data?.countingRecords?.position} />
+                <MaintenanceCard name='Genre' url='/central/maintenance/genre' count={0} />
                 <MaintenanceCard name='Users' url='/central/maintenance/users' count={data?.countingRecords?.users} />
                 <MaintenanceCard name='User Roles' url='/central/maintenance/user-roles' count={data?.countingRecords?.user_roles} />
-                <MaintenanceCard name='Shift' url='/central/maintenance/shift' count={data?.countingRecords?.shift} />
             </motion.div>
         </div>
     )

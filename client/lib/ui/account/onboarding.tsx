@@ -4,7 +4,7 @@
 import React from 'react'
 import styles from '@/styles/lib/ui/account/onboarding.module.scss';
 import Spinner from '@/components/spinner';
-import { OpenSansRegular, OpenSansSemiBold, VolkhovBold } from '@/lib/typography';
+import { OpenSansSemiBold, VolkhovBold } from '@/lib/typography';
 import { useQuery } from '@apollo/client';
 import { GetUserById } from '@/lib/apollo/query/user.query';
 import store from 'store2';

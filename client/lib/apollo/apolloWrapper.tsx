@@ -51,20 +51,7 @@ function makeClient() {
 
 
     return new ApolloClient({
-        cache: new InMemoryCache({
-            typePolicies: {
-                Country: {
-                    keyFields: ["country_id"]
-                },
-                Category: {
-                    keyFields: ["category_id"]
-                },
-                Position: {
-                    keyFields: ["position_id"]
-                },
-
-            }
-        }),
+        cache: new InMemoryCache(),
         credentials: "include",
         link: from([authMiddleware, splitLink]),
     });

@@ -13,7 +13,11 @@ export const MoviesMutation = extendType({
         file: "Upload",
         genre_id: nonNull(list(idArg())),
       },
-      resolve: async (_, { input, file, genre_id }, { prisma }: Context) => {
+      resolve: async (
+        _,
+        { input, file, genre_id },
+        { prisma, pubsub }: Context
+      ) => {
         const { createReadStream, filename, mimetype } = await file;
 
         for (const key in input) {
@@ -42,6 +46,8 @@ export const MoviesMutation = extendType({
             },
           },
         });
+
+        pubsub.publish("CREATE_MOVIES_SUB", movies);
 
         return {
           __typename: "Movies",

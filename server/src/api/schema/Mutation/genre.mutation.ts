@@ -8,7 +8,7 @@ export const GenreMutation = extendType({
     t.field("create_genre", {
       type: "GenrePayload",
       args: { input: "GenreInput" },
-      resolve: async (_, { input }, { prisma }: Context) => {
+      resolve: async ({}, { input }, { prisma, pubsub }: Context) => {
         for (const key in input) {
           if (input.hasOwnProperty(key)) {
             if (!input[key]) {
@@ -23,6 +23,8 @@ export const GenreMutation = extendType({
           data: { name: input.name, slug: Slugify(input.name) },
         });
 
+        pubsub.publish("CREATE_GENRE_SUBS", genre);
+
         return {
           __typename: "Genre",
           ...genre,
@@ -32,7 +34,7 @@ export const GenreMutation = extendType({
     t.field("update_genre", {
       type: "GenrePayload",
       args: { genre_id: nonNull(idArg()), input: "GenreInput" },
-      resolve: async (_, { genre_id, input }, { prisma }: Context) => {
+      resolve: async ({}, { genre_id, input }, { prisma }: Context) => {
         for (const key in input) {
           if (input.hasOwnProperty(key)) {
             if (!input[key]) {
@@ -63,7 +65,7 @@ export const GenreMutation = extendType({
     t.field("delete_genre", {
       type: "Genre",
       args: { genre_id: nonNull(idArg()) },
-      resolve: async (_, { genre_id }, { prisma }: Context) => {
+      resolve: async ({}, { genre_id }, { prisma }: Context) => {
         return await prisma.genre.update({
           where: { genre_id },
           data: { is_deleted: true },

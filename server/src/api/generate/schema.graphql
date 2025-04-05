@@ -142,6 +142,7 @@ type Genre {
   is_deleted: Boolean
   movies(input: PaginationInput, search: String): MoviesPagination
   name: String
+  totalMovies: Int
   updated_at: DateTime
 }
 
@@ -322,6 +323,7 @@ type Movies {
   is_deleted: Boolean
   movies_id: ID
   name: String
+  totalGenre: Int
   updated_at: DateTime
   url: String
   year: Int
@@ -502,6 +504,11 @@ scalar SafeInt @specifiedBy(url: "https://www.ecma-international.org/ecma-262/#s
 
 """A field whose value is a Semantic Version: https://semver.org"""
 scalar SemVer
+
+type Subscription {
+  GenreSubscriptions: Genre
+  MoviesSubscriptions: Movies
+}
 
 interface Success {
   method: String

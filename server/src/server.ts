@@ -6,7 +6,7 @@ import { createServer } from "node:http";
 import { join } from "node:path";
 import { WebSocketServer } from "ws";
 import { useServer } from "graphql-ws/use/ws";
-import { prisma } from "./api/helpers/server.js";
+import { prisma, pubsub } from "./api/helpers/server.js";
 import cors from "cors";
 import "dotenv/config";
 import express from "express";
@@ -100,7 +100,7 @@ import { graphqlUploadExpress } from "graphql-upload-ts";
     json(),
     expressMiddleware(server, {
       context: async ({ req, res }) => {
-        return { req, res, prisma };
+        return { req, res, prisma, pubsub };
       },
     })
   );
