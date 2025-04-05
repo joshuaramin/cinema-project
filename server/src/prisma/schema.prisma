@@ -124,15 +124,16 @@ model Genre {
 }
 
 model Movie {
-  movies_id   String   @id @default(cuid())
-  name        String   @db.VarChar(100)
-  slug        String
-  url         String
-  duration    String
-  description String   @db.Text
-  year        Int
-  is_deleted  Boolean  @default(false)
-  created_at  DateTime @default(now()) @db.Timestamp(6)
-  updated_at  DateTime @default(now()) @db.Timestamp(6)
-  Genre       Genre[]
+  movies_id    String   @id @default(cuid())
+  name         String   @db.VarChar(100)
+  slug         String
+  url          String
+  duration     String
+  description  String   @db.Text
+  year         Int
+  release_date DateTime @db.Date
+  is_deleted   Boolean  @default(false)
+  created_at   DateTime @default(now()) @db.Timestamp(6)
+  updated_at   DateTime @default(now()) @db.Timestamp(6)
+  Genre        Genre[]
 }

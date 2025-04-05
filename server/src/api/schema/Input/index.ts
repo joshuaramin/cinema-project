@@ -61,6 +61,7 @@ export const MoviesInput = inputObjectType({
     t.string("name");
     t.string("description");
     t.string("duration");
+    t.date("release_date");
     t.int("year");
   },
 });

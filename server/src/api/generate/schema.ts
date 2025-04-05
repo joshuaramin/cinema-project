@@ -640,6 +640,7 @@ export interface NexusGenInputs {
     description?: string | null; // String
     duration?: string | null; // String
     name?: string | null; // String
+    release_date?: NexusGenScalars['Date'] | null; // Date
     year?: number | null; // Int
   }
   PaginationInput: { // input type
@@ -828,6 +829,7 @@ export interface NexusGenObjects {
     is_deleted?: boolean | null; // Boolean
     movies_id?: string | null; // ID
     name?: string | null; // String
+    release_date?: NexusGenScalars['Date'] | null; // Date
     updated_at?: NexusGenScalars['DateTime'] | null; // DateTime
     url?: string | null; // String
     year?: number | null; // Int
@@ -1021,6 +1023,7 @@ export interface NexusGenFieldTypes {
     is_deleted: boolean | null; // Boolean
     movies_id: string | null; // ID
     name: string | null; // String
+    release_date: NexusGenScalars['Date'] | null; // Date
     totalGenre: number | null; // Int
     updated_at: NexusGenScalars['DateTime'] | null; // DateTime
     url: string | null; // String
@@ -1256,6 +1259,7 @@ export interface NexusGenFieldTypeNames {
     is_deleted: 'Boolean'
     movies_id: 'ID'
     name: 'String'
+    release_date: 'Date'
     totalGenre: 'Int'
     updated_at: 'DateTime'
     url: 'String'
@@ -1428,7 +1432,7 @@ export interface NexusGenArgTypes {
     }
     create_movies: { // args
       file?: NexusGenScalars['Upload'] | null; // Upload
-      genre_id: Array<string | null>; // [ID]!
+      genre_id: string[]; // [ID!]!
       input?: NexusGenInputs['MoviesInput'] | null; // MoviesInput
     }
     create_role_permission: { // args

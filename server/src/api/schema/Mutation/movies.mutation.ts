@@ -11,7 +11,7 @@ export const MoviesMutation = extendType({
       args: {
         input: "MoviesInput",
         file: "Upload",
-        genre_id: nonNull(list(idArg())),
+        genre_id: nonNull(list(nonNull(idArg()))),
       },
       resolve: async (
         _,
@@ -39,6 +39,7 @@ export const MoviesMutation = extendType({
             slug: Slugify(input.name),
             description: input.description,
             url: await AWSUploader(createReadStream, filename),
+            release_date: input.release_date,
             Genre: {
               connect: genre_id.map((genre_id) => ({
                 genre_id,

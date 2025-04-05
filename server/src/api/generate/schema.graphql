@@ -323,6 +323,7 @@ type Movies {
   is_deleted: Boolean
   movies_id: ID
   name: String
+  release_date: Date
   totalGenre: Int
   updated_at: DateTime
   url: String
@@ -333,6 +334,7 @@ input MoviesInput {
   description: String
   duration: String
   name: String
+  release_date: Date
   year: Int
 }
 
@@ -354,7 +356,7 @@ type Mutation {
   create_address(input: AddressInput!, profile_id: ID!): AddressPayload
   create_genre(input: GenreInput): GenrePayload
   create_group(input: GroupInput): GroupPayload
-  create_movies(file: Upload, genre_id: [ID]!, input: MoviesInput): MoviesPayload
+  create_movies(file: Upload, genre_id: [ID!]!, input: MoviesInput): MoviesPayload
   create_role_permission(group_id: ID!, type: String!): PermissionPayload
   create_user_account(address: AddressInput!, input: UserInput!, user_role_id: ID!): UserPayload
   create_user_role(description: String, name: String!): UserRolePayload
