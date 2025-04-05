@@ -5,6 +5,7 @@ import styles from '@/styles/components/a.module.scss';
 import { IconType } from 'react-icons';
 import { OpenSansRegular, OpenSansSemiBold, VolkhovLight } from '@/lib/typography';
 import cn from '@/lib/util/cn';
+import { usePathname } from 'next/navigation';
 
 
 
@@ -27,9 +28,10 @@ interface ButtonLinks {
 
 export const ButtonLink = ({ icon: Icon, name, url }: ButtonLinks) => {
 
+    const pathname = usePathname()
 
     return (
-        <div className={cn(styles.buttonLink)}>
+        <div className={cn(styles.buttonLink, pathname.includes(name.toLowerCase()) && styles.active)}>
             <Icon size={23} />
             <Link className={OpenSansRegular.className} href={url} >{name}</Link>
         </div>

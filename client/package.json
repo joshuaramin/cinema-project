@@ -18,6 +18,7 @@
     "@lexical/table": "^0.27.2",
     "@lexical/utils": "^0.27.2",
     "add": "^2.0.6",
+    "cookies-next": "^5.1.0",
     "date-fns": "^4.1.0",
     "dayjs": "^1.11.13",
     "graphql": "^16.10.0",
@@ -45,5 +46,13 @@
     "eslint": "^9",
     "eslint-config-next": "15.2.2",
     "typescript": "^5"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "@parcel/watcher"
+    ],
+    "ignoredBuiltDependencies": [
+      "sharp"
+    ]
   }
 }

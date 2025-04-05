@@ -7,13 +7,14 @@ import { ColorRing } from 'react-loader-spinner'
 interface SpinnerProps {
     heigth: number
     width: number
+    color?: string[]
 }
 
-export default function Spinner({ heigth, width }: SpinnerProps) {
+export default function Spinner({ color, heigth, width }: SpinnerProps) {
     return (
         <div>
             <ColorRing
-                colors={["#D6AA58", "#D6AA58", "#D6AA58", "#D6AA58", "#D6AA58"]}
+                colors={color ? color as [string, string, string, string, string] : ["#003B5C", "#003B5C", "#003B5C", "#003B5C", "#003B5C"]}
                 width={width}
                 height={heigth}
             />

@@ -38,6 +38,17 @@
             stroke: $white
         }
     }
+
+
+}
+
+.active {
+    background-color: $Primary500;
+    color: #fff;
+
+    svg {
+        color: #fff;
+    }
 }
 
 .titleLink {

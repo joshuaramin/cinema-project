@@ -113,7 +113,7 @@ export const UserMutation = extendType({
           await prisma.activity_Logs.create({
             data: {
               title: "Logged In",
-              description: "You logged into your account",
+              description: "You logged in into your account",
               User: {
                 connect: {
                   user_id: userEmail.user_id,

@@ -1,0 +1,49 @@
+@use "../../../../variables.module" as *;
+
+.optionContainer {
+    position: absolute;
+    width: 100%;
+    height: auto;
+    box-shadow: 0px 0px 3px 0px #5c5c5c;
+    padding: 15px 10px;
+    background-color: #fff;
+    top: -135px;
+    border-radius: 5px;
+
+
+
+    button {
+        width: 100%;
+        padding: 10px;
+        background-color: transparent;
+        border-radius: 5px;
+        margin: 2px 0;
+        border: none;
+        text-align: left;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        cursor: pointer;
+
+        span {
+            font-size: $fntbase;
+        }
+
+        svg {
+            color: $Primary500;
+        }
+
+        &:hover {
+            background-color: $Primary500;
+            color: $white;
+
+            span {
+                color: $white;
+            }
+
+            svg {
+                stroke: $white;
+            }
+        }
+    }
+}

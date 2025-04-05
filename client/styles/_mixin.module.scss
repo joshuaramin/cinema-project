@@ -1,25 +1,23 @@
-// Base mixin for media queries targeting phones
+
 @mixin phone($min-width, $max-width) {
     @media only screen and (min-width: #{$min-width}) and (max-width: #{$max-width}) {
         @content;
     }
 }
 
-// Small Phones (up to 320px)
+
 @mixin small-phone {
     @include phone('0px', '320px') {
         @content;
     }
 }
 
-// Medium Phones (321px to 480px)
 @mixin medium-phone {
     @include phone('321px', '480px') {
         @content;
     }
 }
 
-// Large Phones (481px to 768px)
 @mixin large-phone {
     @include phone('481px', '768px') {
         @content;

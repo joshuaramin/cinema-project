@@ -364,6 +364,7 @@ type Mutation {
   delete_group(group_id: ID!): Group
   delete_movies(movies_id: ID!): Movies
   login(input: AuthInput): Credentials
+  logout_activity_logs(user_id: ID!): Activity_Logs
   update_address(address_id: ID!, input: AddressInput!): Address
   update_genre(genre_id: ID!, input: GenreInput): GenrePayload
   update_group(group_id: ID!, input: GroupInput): GroupPayload

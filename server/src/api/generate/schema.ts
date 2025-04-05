@@ -1051,6 +1051,7 @@ export interface NexusGenFieldTypes {
     delete_group: NexusGenRootTypes['Group'] | null; // Group
     delete_movies: NexusGenRootTypes['Movies'] | null; // Movies
     login: NexusGenRootTypes['Credentials'] | null; // Credentials
+    logout_activity_logs: NexusGenRootTypes['Activity_Logs'] | null; // Activity_Logs
     update_address: NexusGenRootTypes['Address'] | null; // Address
     update_genre: NexusGenRootTypes['GenrePayload'] | null; // GenrePayload
     update_group: NexusGenRootTypes['GroupPayload'] | null; // GroupPayload
@@ -1285,6 +1286,7 @@ export interface NexusGenFieldTypeNames {
     delete_group: 'Group'
     delete_movies: 'Movies'
     login: 'Credentials'
+    logout_activity_logs: 'Activity_Logs'
     update_address: 'Address'
     update_genre: 'GenrePayload'
     update_group: 'GroupPayload'
@@ -1459,6 +1461,9 @@ export interface NexusGenArgTypes {
     }
     login: { // args
       input?: NexusGenInputs['AuthInput'] | null; // AuthInput
+    }
+    logout_activity_logs: { // args
+      user_id: string; // ID!
     }
     update_address: { // args
       address_id: string; // ID!

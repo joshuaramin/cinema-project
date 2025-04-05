@@ -23,30 +23,27 @@ export default function SidebarURL() {
 
     const SidebarURLList = [
         {
-            name: "Dashboard", url: "/central/overview",
+            name: "Overview", url: "/central/overview",
             role: ["Administrator"], icon: TbLayoutDashboard
         },
         {
             name: "Movies", url: "/central/movies",
-            role: ["Administrator"], icon: TbMovie
+            role: ["Administrator", "User"], icon: TbMovie
         },
         {
-            name: "Ticket", url: "/central/tickets",
+            name: "Tickets", url: "/central/tickets",
             role: ["Administrator"], icon: TbTicket
-        },
-        {
-
-            name: "Maintenacne", url: "/central/maintenance",
-            role: ["Administrator"], icon: TbAdjustmentsHorizontal
         },
         {
             name: "Analytics", url: "/central/analytics",
             role: ["Administrator"], icon: TbChartBar
         },
         {
-            name: "Settings", url: "/central/settings",
-            role: ["Administrator", "User"], icon: TbSettings
-        }
+
+            name: "Maintenacne", url: "/central/maintenance",
+            role: ["Administrator"], icon: TbAdjustmentsHorizontal
+        },
+
     ]
 
     if (!user) {
