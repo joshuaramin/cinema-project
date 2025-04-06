@@ -3,7 +3,7 @@
 import React, { ChangeEvent, useEffect, useState } from 'react'
 import CentralHeader from '../header'
 import store from 'store2'
-import { SubmitHandler, useForm } from 'react-hook-form'
+import { FieldError, SubmitHandler, useForm } from 'react-hook-form'
 import { useMutation, useQuery } from '@apollo/client'
 import { CREATE_MOVIES } from '@/lib/apollo/mutation/movies.mutation'
 import { GetAllMovies } from '@/lib/apollo/query/movies.query'
@@ -11,8 +11,14 @@ import Pagination from '@/components/pagination'
 import styles from '@/styles/lib/ui/central/movies/movies.module.scss';
 import { InputText } from '@/components/input'
 import Textarea from '@/components/textarea'
+import { GetAllGenere } from '@/lib/apollo/query/genre.query'
+import { SelectArray } from '@/components/select'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { Movieschema } from '@/lib/validation/MovieSchema'
+import { FileUpload } from '@/components/fileupload'
 
 type FormFields = {
+    file: File,
     genre_id: string[],
     description: string
     duration: string
@@ -24,11 +30,20 @@ type FormFields = {
 export default function MoviesPage() {
 
     const user = store.get("UserAccount");
+    const [gsearch, setGSearch] = useState<string>("");
     const [search, setSearch] = useState<string>("");
     const [page, setPage] = useState<number>(1);
     const itemsPerPage = 20;
 
-    const [file, setFile] = useState<File | null>(null)
+    const { data: GenreData } = useQuery(GetAllGenere, {
+        variables: {
+            input: {
+                take: 50,
+                page: 1
+            },
+            search: gsearch
+        }
+    })
 
     const { data, subscribeToMore } = useQuery(GetAllMovies, {
         variables: {
@@ -40,18 +55,27 @@ export default function MoviesPage() {
         }
     })
 
+    const onHandleGSearch = (e: ChangeEvent<HTMLInputElement>) => {
+        setGSearch(e.target.value);
+    }
+
     const onHandleSearch = (e: ChangeEvent<HTMLInputElement>) => {
         setSearch(e.target.value)
     }
 
-    const { register, reset, formState: { errors }, handleSubmit } = useForm<FormFields>({})
+    const { register, reset, formState: { errors }, handleSubmit, setValue, watch } = useForm<FormFields>({
+        resolver: zodResolver(Movieschema),
+        defaultValues: {
+            genre_id: []
+        }
+    })
 
     const [mutate] = useMutation(CREATE_MOVIES)
 
     const onSubmit: SubmitHandler<FormFields> = (data) => {
         mutate({
             variables: {
-                file,
+                file: data.file,
                 genreId: data.genre_id,
                 input: {
                     description: data.description,
@@ -62,7 +86,6 @@ export default function MoviesPage() {
                 }
             },
             onCompleted: () => {
-
                 reset({
                     name: "",
                     duration: "",
@@ -97,10 +120,10 @@ export default function MoviesPage() {
                         error={errors.name}
                         register={register}
                         isRequired={true}
-                        label='Name'
-                        name='movies'
-
+                        label='Movie Name'
+                        name='name'
                     />
+
                     <Textarea
                         register={register}
                         error={errors.description}
@@ -108,7 +131,56 @@ export default function MoviesPage() {
                         label='Description'
                         name='description'
                         placeholder=''
+                    />
 
+                    <InputText
+                        icon={false}
+                        error={errors.duration}
+                        register={register}
+                        isRequired={true}
+                        label='Duration'
+                        name='duration'
+                    />
+                    <InputText
+                        icon={false}
+                        error={errors.year}
+                        register={register}
+                        isRequired={true}
+                        label='Year'
+                        name='year'
+                    />
+
+                    <FileUpload
+                        name='file'
+                        register={register}
+                        label='File Upload'
+                        isRequired={true}
+                        error={errors.file}
+                        setValue={setValue}
+                        value={watch("file")}
+                        accepted={{
+                            "image/*":
+                                [".png", ".jpg", ".jpeg", ".gif", ".bitmap", ".webp",
+                                    ".tiff"
+                                ]
+                        }}
+                    />
+
+                    <SelectArray
+                        label='Genre'
+                        register={register}
+                        error={errors.genre_id as FieldError}
+                        onChange={onHandleGSearch}
+                        isRequired={true}
+                        name='genre_id'
+                        value={watch("genre_id")}
+                        setValue={setValue}
+                        options={
+                            (GenreData?.getAllGenre.item || []).map(({ genre_id, name }: { genre_id: string, name: string }) => ({
+                                label: name,
+                                value: genre_id
+                            }))
+                        }
                     />
                 </>}
             />

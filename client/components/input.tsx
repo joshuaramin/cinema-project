@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useEffect, useState } from 'react'
+import React, { ChangeEvent, useState } from 'react'
 import styles from '@/styles/components/input.module.scss'
 import { VolkhovLight } from '@/lib/typography'
 import { TbLock, TbEyeOff, TbMail, TbEye, TbX } from 'react-icons/tb'
@@ -151,6 +151,7 @@ export function InputTag({ label, isRequired, name, register, error, setValue, v
             <div className={styles.body}>
                 <input type="text"
                     value={inputValue}
+                    {...register(name)}
                     onChange={onHandleInputChange}
                     onKeyDown={onHandleKeyDown}
                     placeholder='Press Enter to add tag'
@@ -160,5 +161,12 @@ export function InputTag({ label, isRequired, name, register, error, setValue, v
                 <span className={styles.error}>{error?.message}</span>
             </div>
         </div >
+    )
+}
+
+
+export function InputCalendar() {
+    return (
+        <div className={styles.inputCalendar}></div>
     )
 }
