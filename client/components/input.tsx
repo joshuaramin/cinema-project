@@ -1,10 +1,12 @@
 import React, { ChangeEvent, useState } from 'react'
 import styles from '@/styles/components/input.module.scss'
 import { VolkhovLight } from '@/lib/typography'
-import { TbLock, TbEyeOff, TbMail, TbEye, TbX } from 'react-icons/tb'
+import { TbLock, TbEyeOff, TbMail, TbEye, TbX, TbCalendar } from 'react-icons/tb'
 import { FieldError, FieldValues, Merge, UseFormRegister, UseFormSetValue } from 'react-hook-form'
 import { Links } from './Link'
 import cn from '@/lib/util/cn'
+import MiniCalendar from './calendar/miniCalendar'
+import { format } from 'date-fns'
 
 
 interface InputFieldProps<T extends FieldValues = any> {
@@ -118,7 +120,7 @@ export function InputTag({ label, isRequired, name, register, error, setValue, v
             const newTags = [...tags, inputValue];
             setTags(newTags);
             setValue(name, newTags);
-            setInputValue(""); // Clear the input value
+            setInputValue("");
         }
     }
 
@@ -165,8 +167,44 @@ export function InputTag({ label, isRequired, name, register, error, setValue, v
 }
 
 
-export function InputCalendar() {
+interface InputCalendarProps<T extends FieldValues = any> {
+    name: string
+    label: string
+    isRequired: boolean
+    error: FieldError | undefined;
+    register: UseFormRegister<T>;
+}
+
+export function InputCalendar({ error, isRequired, label, name, register }: InputCalendarProps) {
+
+
+    const [date, setDate] = useState("");
+    const [toggle, setToggle] = useState(false);
+
+    const onHandleToggle = () => {
+        setToggle(() => !toggle);
+    }
+
     return (
-        <div className={styles.inputCalendar}></div>
+        <div className={styles.inputCalendar}>
+            <div className={styles.header}>
+                <div className={styles.core}>
+                    <label className={cn(styles.label, VolkhovLight.className)}>{label}</label>
+                    {isRequired && <span className={styles.isRequired}>*</span>}
+                </div>
+            </div>
+            <div className={styles.body}>
+                <input value={date} className={cn(VolkhovLight.className)} type="text" placeholder='' {...register(name)} />
+                <div>
+                    <button onClick={onHandleToggle}>
+                        <TbCalendar size={23} />
+                    </button>
+                    {toggle && <MiniCalendar value={date} setDate={setDate} />}
+                </div>
+            </div>
+            <div className={styles.errorBody}>
+                <span className={styles.error}>{error?.message}</span>
+            </div>
+        </div>
     )
 }

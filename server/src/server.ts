@@ -9,12 +9,10 @@ import { useServer } from "graphql-ws/use/ws";
 import { prisma, pubsub } from "./api/helpers/server.js";
 import cors from "cors";
 import "dotenv/config";
-import express from "express";
+import express, { json } from "express";
 import cookieParser from "cookie-parser";
-import bodyParser from "body-parser";
 import nex from "nexus";
 
-const { json } = bodyParser;
 const { makeSchema, fieldAuthorizePlugin } = nex;
 
 import * as GraphQLScalars from "./api/schema/Scalars/index.js";
@@ -28,8 +26,9 @@ import * as GraphQLEnum from "./api/schema/Enum/index.js";
 import * as GraphQLSubscriptions from "./api/schema/Subscription/index.js";
 
 import { graphqlUploadExpress } from "graphql-upload-ts";
+import { Context } from "./api/schema/types/index.js";
 
-(async function CapastonProject() {
+(async function ApolloServerProject() {
   const app = express();
 
   const httpServer = createServer(app);
@@ -89,17 +88,15 @@ import { graphqlUploadExpress } from "graphql-upload-ts";
   await server.start();
 
   app.use(cookieParser());
-
   app.use(
     "/graphql",
     cors<cors.CorsRequest>({
       credentials: true,
-
       origin: ["https://studio.apollographql.com", "http://localhost:3000"],
     }),
     json(),
     expressMiddleware(server, {
-      context: async ({ req, res }) => {
+      context: async ({ req, res }): Promise<Context> => {
         return { req, res, prisma, pubsub };
       },
     })

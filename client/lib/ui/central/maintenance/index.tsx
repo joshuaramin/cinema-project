@@ -23,6 +23,7 @@ export default function MaintenanceIndex() {
                     delay: 1 * 0.2, duration: 1
                 }}>
                 <MaintenanceCard name='Genre' url='/central/maintenance/genre' count={0} />
+                <MaintenanceCard name='Theater' url='/central/maintenance/theater' count={0} />
                 <MaintenanceCard name='Users' url='/central/maintenance/users' count={data?.countingRecords?.users} />
                 <MaintenanceCard name='User Roles' url='/central/maintenance/user-roles' count={data?.countingRecords?.user_roles} />
             </motion.div>

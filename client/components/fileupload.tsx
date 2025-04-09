@@ -1,10 +1,11 @@
-import React, { useCallback } from 'react'
+import React, { useCallback, useState } from 'react'
 import { useDropzone } from 'react-dropzone';
 import toast from 'react-hot-toast';
 import styles from '@/styles/components/fileupload.module.scss';
 import { OpenSansRegular, VolkhovLight } from '@/lib/typography';
 import cn from '@/lib/util/cn';
 import { FieldError, FieldValues, UseFormRegister } from 'react-hook-form';
+import { TbFileUpload, TbDragDrop, TbDragDrop2, TbX } from 'react-icons/tb';
 
 
 type AcceptedFile = {
@@ -25,9 +26,17 @@ interface FileUploadProps<T extends FieldValues = any> {
 
 export function FileUpload({ name, label, isRequired, error, accepted, register, setValue, value }: FileUploadProps) {
 
+    const [fUpload, setFUpload] = useState({
+        name: "",
+    })
     const onDrop = useCallback((acceptedFiles: Array<File>) => {
+        console.log(acceptedFiles[0])
         setValue(name, acceptedFiles[0])
-    }, [])
+        setFUpload({
+            name: acceptedFiles[0].name
+        })
+
+    }, [setValue, setFUpload])
 
 
 
@@ -36,10 +45,9 @@ export function FileUpload({ name, label, isRequired, error, accepted, register,
         accept: accepted,
         onError: () => {
             toast.error("Invalid File Format")
-        }
+        },
+        useFsAccessApi: false
     });
-
-    console.log(value)
 
     return (
         <div className={styles.container}>
@@ -49,16 +57,26 @@ export function FileUpload({ name, label, isRequired, error, accepted, register,
             </div>
             <div className={styles.body} {...getRootProps()}>
                 <input
-                    {...register(name, { required: "File Upload(s) is required" })}
+                    {...register(name)}
                     {...getInputProps()}
-                    defaultValue={value}
                 />
-                {
-                    value ?
-                        <p>Drop the files here...</p> :
-                        <p className={OpenSansRegular.className}>Drag 'n' drop some files here, or click to select files</p>
-                }
+                <div className={styles.dragndrop}>
+                    <TbDragDrop size={60} />
+                    <span className={OpenSansRegular.className}>Click to Upload or drag 'n' drop</span>
+                </div>
+
             </div>
+            {fUpload.name && <div className={styles.fileCard}>
+                <div>
+                    <TbFileUpload size={40} />
+                    <span className={VolkhovLight.className}>{fUpload.name}</span>
+                </div>
+                <div>
+                    <button onClick={() => setFUpload({ name: "" })}>
+                        <TbX size={23} />
+                    </button>
+                </div>
+            </div>}
             <div className={styles.errorBody}>
                 <span className={styles.error}>{error?.message}</span>
             </div>

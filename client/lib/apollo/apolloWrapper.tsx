@@ -6,10 +6,11 @@ import {
     ApolloNextAppProvider,
     ApolloClient,
     InMemoryCache,
-} from "@apollo/experimental-nextjs-app-support";
+} from "@apollo/client-integration-nextjs";
 import { createClient } from 'graphql-ws'
 import { GraphQLWsLink } from '@apollo/client/link/subscriptions'
 import { getMainDefinition } from "@apollo/client/utilities";
+import createUploadLink from 'apollo-upload-client/createUploadLink.mjs'
 
 function makeClient() {
 
@@ -17,7 +18,8 @@ function makeClient() {
     const wsLink = new GraphQLWsLink(createClient({
         url: `ws://localhost:4000/graphql`
     }))
-    const httpLink = new HttpLink({
+
+    const uploadLink = createUploadLink({
         uri: process.env.NEXT_PUBLIC_GRAPHQL_ENDPOINT,
         headers: {
             'x-api-key': process.env.NEXT_PUBLIC_X_API_KEY as string
@@ -26,7 +28,8 @@ function makeClient() {
             cache: "default"
         },
         credentials: "include",
-    });
+    })
+
     const authMiddleware = new ApolloLink((operation: Operation, forward: NextLink) => {
         operation.setContext(({ headers = {} }: { headers?: Record<string, string> }) => ({
             headers: {
@@ -46,7 +49,7 @@ function makeClient() {
             );
         },
         wsLink,
-        httpLink,
+        uploadLink
     );
 
 

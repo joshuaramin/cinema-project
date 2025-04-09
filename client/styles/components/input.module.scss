@@ -240,25 +240,20 @@
     }
 }
 
-.inputDataArray {
+
+
+.inputCalendar {
     width: 100%;
     padding: 10px;
     display: flex;
     flex-direction: column;
     gap: 10px;
+    position: relative;
 
     .header {
-        width: 100%;
         display: flex;
         align-items: center;
-        justify-content: space-between;
         gap: 5px;
-
-        .core {
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
 
         .isRequired {
             color: $Error500;
@@ -286,6 +281,15 @@
             border: none;
             font-size: $fnttiny;
             outline: none;
+        }
+
+        button {
+            border-radius: 100px;
+            height: 35px;
+            width: 35px;
+            border: none;
+            background-color: transparent;
+            cursor: pointer;
         }
     }
 

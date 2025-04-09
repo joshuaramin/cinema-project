@@ -2,6 +2,7 @@ import { extendType, idArg, list, nonNull } from "nexus";
 import { Context } from "../types/index.js";
 import { AWSUploader } from "../../helpers/aws.js";
 import { Slugify } from "../../helpers/slugify.js";
+import { DurationISO } from "../../helpers/duration.js";
 
 export const MoviesMutation = extendType({
   type: "Mutation",
@@ -35,7 +36,7 @@ export const MoviesMutation = extendType({
           data: {
             name: input.name,
             year: input.year,
-            duration: input.duration,
+            duration: DurationISO(input.duration),
             slug: Slugify(input.name),
             description: input.description,
             url: await AWSUploader(createReadStream, filename),
@@ -64,6 +65,7 @@ export const MoviesMutation = extendType({
         movies_id: nonNull(idArg()),
       },
       resolve: async (_, { input, file, movies_id }, { prisma }: Context) => {
+        const { createReadStream, filename } = await file;
         for (const key in input) {
           if (input.hasOwnProperty(key)) {
             if (!input[key]) {
@@ -80,8 +82,9 @@ export const MoviesMutation = extendType({
           data: {
             name: input.name,
             year: input.year,
-            duration: input.duration,
+            duration: DurationISO(input.duration),
             slug: Slugify(input.name),
+            url: await AWSUploader(createReadStream, filename),
           },
         });
 

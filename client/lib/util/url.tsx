@@ -40,7 +40,7 @@ export default function SidebarURL() {
         },
         {
 
-            name: "Maintenacne", url: "/central/maintenance",
+            name: "Maintenance", url: "/central/maintenance",
             role: ["Administrator"], icon: TbAdjustmentsHorizontal
         },
 

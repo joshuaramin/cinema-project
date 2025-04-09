@@ -14,11 +14,9 @@ export const Movieschema = z.object({
   genre_id: z.array(z.string()).min(1, "Please select at least one (1) genre"),
   description: z.string().min(1, "Description is required"),
   name: z.string().min(1, "Movie name is required"),
-  release_date: z.date({
-    errorMap: () => ({ message: "Release date is required" }),
-  }),
+  release_date: z.string(),
   year: z
-    .number({
+    .string({
       message: "Please enter a number",
       description: "Please enter a number",
     })

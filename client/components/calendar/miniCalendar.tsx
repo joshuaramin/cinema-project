@@ -1,16 +1,23 @@
 "use client"
 
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, ChangeEvent, SyntheticEvent } from 'react'
 import styles from '@/styles/components/calendar/minicalendar.module.scss';
 import { VolkhovBold, VolkhovLight } from '@/lib/typography';
 import { months as Months } from './calendar.config';
 import { generateDate } from './calendar.config';
 import cn from '@/lib/util/cn';
+import { format } from 'date-fns'
 
 type YearList = {
     years: number[]
 }
-export default function MiniCalendar() {
+
+interface Props {
+    value: any
+    setDate: any
+}
+export default function MiniCalendar({ value, setDate }: Props) {
+
 
     const [months, setMonths] = useState(new Date().getMonth())
     const [years, setYears] = useState(new Date().getFullYear())
@@ -25,6 +32,10 @@ export default function MiniCalendar() {
         setYearList({ years: yearsInArray })
     }, [])
 
+
+    const onHandleClick = (e: SyntheticEvent<HTMLButtonElement>) => {
+        setDate(e.currentTarget.value)
+    }
 
     return (
         <div className={styles.container}>
@@ -48,7 +59,7 @@ export default function MiniCalendar() {
             <div className={styles.body}>
                 {generateDate(months, years).map(({ date, today }, index) => (
                     <div key={index}>
-                        <button className={cn(today ? `${styles.active}` : '')}>
+                        <button value={format(new Date(date.toISOString()), "yyyy-MM-dd")} onClick={onHandleClick} className={cn(today && styles.active)}>
                             <span>{date.date()}</span>
                         </button>
                     </div>

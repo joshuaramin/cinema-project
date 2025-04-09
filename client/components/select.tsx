@@ -105,7 +105,6 @@ export function SelectArray({ label, name, isRequired, error, onChange, options,
         setToggle(() => !toggle)
     }
 
-    console.log(error)
     return (
         <div className={styles.array}>
             <div className={styles.header}>
@@ -117,8 +116,8 @@ export function SelectArray({ label, name, isRequired, error, onChange, options,
 
                     <div className={styles.sc}>
                         {
-                            val ? val.map((value) => (
-                                <div className={styles.options}>
+                            val ? val.map((value, index) => (
+                                <div key={index} className={styles.options}>
                                     <span className={cn(VolkhovLight.className, styles.categoryspan)}>
                                         {options.find(option => option.value === value)?.label}
                                     </span>

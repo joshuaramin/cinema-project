@@ -6,7 +6,7 @@ export const CountQuery = extendType({
   definition(t) {
     t.field("countingRecords", {
       type: "count",
-      resolve: async ({}, {}, { prisma }: Context): Promise<any> => {
+      resolve: async (_, __, { prisma }: Context): Promise<any> => {
         const users = await prisma.user.count({
           where: { is_deleted: false },
         });

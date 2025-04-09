@@ -22,9 +22,74 @@
     }
 
     .body {
-        border: 1px solid $Neutral200;
+        border: 3.5px dashed $Primary500;
         padding: 20px;
         border-radius: 5px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+
+        .dragndrop {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            gap: 10px;
+            height: 200px;
+
+            svg {
+                stroke-width: 1.5px
+            }
+
+            span {
+                font-weight: bolder;
+                font-size: $fntbase;
+            }
+        }
+    }
+
+    .fileCard {
+        width: 100%;
+        padding: 20px;
+        border: 3px solid $Primary500;
+        border-radius: 5px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        svg {
+            stroke-width: 1.5px;
+            stroke: $Primary500;
+        }
+
+        div {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+
+            button {
+                height: 40px;
+                width: 40px;
+                border-radius: 100px;
+                background-color: transparent;
+                border: none;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                cursor: pointer;
+
+                &:hover {
+                    background-color: $Primary500;
+
+                    svg {
+                        stroke: #fff;
+                    }
+                }
+            }
+
+        }
     }
 
     .errorBody {

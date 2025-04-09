@@ -9,27 +9,29 @@ import { CREATE_MOVIES } from '@/lib/apollo/mutation/movies.mutation'
 import { GetAllMovies } from '@/lib/apollo/query/movies.query'
 import Pagination from '@/components/pagination'
 import styles from '@/styles/lib/ui/central/movies/movies.module.scss';
-import { InputText } from '@/components/input'
+import { InputCalendar, InputText } from '@/components/input'
 import Textarea from '@/components/textarea'
 import { GetAllGenere } from '@/lib/apollo/query/genre.query'
 import { SelectArray } from '@/components/select'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Movieschema } from '@/lib/validation/MovieSchema'
 import { FileUpload } from '@/components/fileupload'
+import toast from 'react-hot-toast'
 
 type FormFields = {
-    file: File,
+    file: File
     genre_id: string[],
     description: string
     duration: string
     name: string
     release_date: any
-    year: number
+    year: string
 }
 
 export default function MoviesPage() {
 
     const user = store.get("UserAccount");
+
     const [gsearch, setGSearch] = useState<string>("");
     const [search, setSearch] = useState<string>("");
     const [page, setPage] = useState<number>(1);
@@ -73,19 +75,22 @@ export default function MoviesPage() {
     const [mutate] = useMutation(CREATE_MOVIES)
 
     const onSubmit: SubmitHandler<FormFields> = (data) => {
+
+        console.log("Data File", data.file instanceof File)
         mutate({
             variables: {
-                file: data.file,
+                file: watch("file"),
                 genreId: data.genre_id,
                 input: {
                     description: data.description,
                     duration: data.duration,
                     name: data.name,
                     release_date: data.release_date,
-                    year: data.year
+                    year: parseInt(data.year)
                 }
             },
             onCompleted: () => {
+                toast.success("Successfully Created")
                 reset({
                     name: "",
                     duration: "",
@@ -97,7 +102,8 @@ export default function MoviesPage() {
             },
             context: {
                 headers: {
-                    "x-api-key": process.env.NEXT_PUBLIC_X_API_KEY
+                    "x-api-key": process.env.NEXT_PUBLIC_X_API_KEY,
+                    "apollo-require-preflight": true
                 }
             }
         })
@@ -150,12 +156,20 @@ export default function MoviesPage() {
                         name='year'
                     />
 
+                    <InputCalendar
+                        label='Release Date'
+                        name='release_date'
+                        error={errors.release_date as FieldError}
+                        register={register}
+                        isRequired={true}
+                    />
+
                     <FileUpload
                         name='file'
                         register={register}
                         label='File Upload'
                         isRequired={true}
-                        error={errors.file}
+                        error={errors.file as FieldError}
                         setValue={setValue}
                         value={watch("file")}
                         accepted={{

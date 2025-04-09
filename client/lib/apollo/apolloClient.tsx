@@ -3,7 +3,8 @@ import {
   registerApolloClient,
   InMemoryCache,
   ApolloClient
-} from "@apollo/experimental-nextjs-app-support";
+} from "@apollo/client-integration-nextjs";
+import createUploadLink from "apollo-upload-client/createUploadLink.mjs";
 
 export const { getClient, query, PreloadQuery } = registerApolloClient(() => {
 
@@ -20,7 +21,7 @@ export const { getClient, query, PreloadQuery } = registerApolloClient(() => {
 
   return new ApolloClient({
     cache: new InMemoryCache(),
-    link: new HttpLink({
+    link: createUploadLink({
       credentials: "include",
       uri: process.env.NEXT_PUBLIC_GRAPHQL_ENDPOINT,
     }),
