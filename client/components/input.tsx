@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useState } from 'react'
+import React, { ChangeEvent, useEffect, useState } from 'react'
 import styles from '@/styles/components/input.module.scss'
 import { VolkhovLight } from '@/lib/typography'
 import { TbLock, TbEyeOff, TbMail, TbEye, TbX, TbCalendar } from 'react-icons/tb'
@@ -171,7 +171,7 @@ interface InputCalendarProps<T extends FieldValues = any> {
     name: string
     label: string
     isRequired: boolean
-    error: FieldError | undefined;
+    error: FieldError | undefined
     register: UseFormRegister<T>;
 }
 
@@ -180,6 +180,7 @@ export function InputCalendar({ error, isRequired, label, name, register }: Inpu
 
     const [date, setDate] = useState("");
     const [toggle, setToggle] = useState(false);
+
 
     const onHandleToggle = () => {
         setToggle(() => !toggle);
@@ -194,12 +195,15 @@ export function InputCalendar({ error, isRequired, label, name, register }: Inpu
                 </div>
             </div>
             <div className={styles.body}>
-                <input value={date} className={cn(VolkhovLight.className)} type="text" placeholder='' {...register(name)} />
+                <div className={styles.inputCal}>
+                    <span className={cn(VolkhovLight.className)}>{date}</span>
+                </div>
+                <input hidden type="text" placeholder='' {...register(name)} />
                 <div>
                     <button onClick={onHandleToggle}>
                         <TbCalendar size={23} />
                     </button>
-                    {toggle && <MiniCalendar value={date} setDate={setDate} />}
+                    {toggle && <MiniCalendar value={date} setDate={setDate} onClose={onHandleToggle} />}
                 </div>
             </div>
             <div className={styles.errorBody}>

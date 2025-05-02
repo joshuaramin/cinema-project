@@ -5,6 +5,9 @@ const nextConfig: NextConfig = {
   sassOptions: {
     silenceDeprecations: ["legacy-js-api"],
   },
+  images: {
+    remotePatterns: [{ hostname: "xxdefault.s3.ap-southeast-1.amazonaws.com" }],
+  },
 };
 
 export default nextConfig;

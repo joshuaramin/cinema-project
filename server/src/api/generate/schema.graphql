@@ -320,6 +320,7 @@ type Movies {
   description: String
   duration: Duration
   genre: [Genre]
+  getAllRelatedMovies(input: PaginationInput!): MoviesPagination
   is_deleted: Boolean
   movies_id: ID
   name: String

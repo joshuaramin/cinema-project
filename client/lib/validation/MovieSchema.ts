@@ -14,12 +14,12 @@ export const Movieschema = z.object({
   genre_id: z.array(z.string()).min(1, "Please select at least one (1) genre"),
   description: z.string().min(1, "Description is required"),
   name: z.string().min(1, "Movie name is required"),
-  release_date: z.string(),
+  release_date: z.string().min(1, "Release Date is required"),
   year: z
     .string({
       message: "Please enter a number",
       description: "Please enter a number",
     })
-    .min(0, "Year is required"),
+    .min(1, "Year is required"),
   duration: z.string().min(1, "Duration is required"),
 });

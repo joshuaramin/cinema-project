@@ -1020,6 +1020,7 @@ export interface NexusGenFieldTypes {
     description: string | null; // String
     duration: NexusGenScalars['Duration'] | null; // Duration
     genre: Array<NexusGenRootTypes['Genre'] | null> | null; // [Genre]
+    getAllRelatedMovies: NexusGenRootTypes['MoviesPagination'] | null; // MoviesPagination
     is_deleted: boolean | null; // Boolean
     movies_id: string | null; // ID
     name: string | null; // String
@@ -1256,6 +1257,7 @@ export interface NexusGenFieldTypeNames {
     description: 'String'
     duration: 'Duration'
     genre: 'Genre'
+    getAllRelatedMovies: 'MoviesPagination'
     is_deleted: 'Boolean'
     movies_id: 'ID'
     name: 'String'
@@ -1404,6 +1406,11 @@ export interface NexusGenArgTypes {
     movies: { // args
       input?: NexusGenInputs['PaginationInput'] | null; // PaginationInput
       search?: string | null; // String
+    }
+  }
+  Movies: {
+    getAllRelatedMovies: { // args
+      input: NexusGenInputs['PaginationInput']; // PaginationInput!
     }
   }
   Mutation: {

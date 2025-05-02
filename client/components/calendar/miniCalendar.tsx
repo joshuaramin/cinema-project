@@ -15,8 +15,9 @@ type YearList = {
 interface Props {
     value: any
     setDate: any
+    onClose: () => void
 }
-export default function MiniCalendar({ value, setDate }: Props) {
+export default function MiniCalendar({ value, setDate, onClose }: Props) {
 
 
     const [months, setMonths] = useState(new Date().getMonth())
@@ -34,6 +35,7 @@ export default function MiniCalendar({ value, setDate }: Props) {
 
 
     const onHandleClick = (e: SyntheticEvent<HTMLButtonElement>) => {
+        onClose();
         setDate(e.currentTarget.value)
     }
 
@@ -51,7 +53,7 @@ export default function MiniCalendar({ value, setDate }: Props) {
                 <div className={styles.years}>
                     <select value={years} onChange={(e) => setYears(parseInt(e.target.value))}  >
                         {yearList.years.map((year, index) => (
-                            <option key={index} value={index}>{year}</option>
+                            <option key={index} value={year}>{year}</option>
                         ))}
                     </select>
                 </div>

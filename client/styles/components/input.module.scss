@@ -273,6 +273,17 @@
         border: 1px solid $Neutral200;
         border-radius: 5px;
 
+        .inputCal {
+            width: 100%;
+            height: 45px;
+            display: flex;
+            align-items: center;
+
+            span {
+                font-size: $fnttiny;
+            }
+        }
+
         input {
             width: 100%;
             height: 45px;

@@ -6,9 +6,8 @@ import store from 'store2'
 import { FieldError, SubmitHandler, useForm } from 'react-hook-form'
 import { useMutation, useQuery } from '@apollo/client'
 import { CREATE_MOVIES } from '@/lib/apollo/mutation/movies.mutation'
-import { GetAllMovies } from '@/lib/apollo/query/movies.query'
+import { GetAllMovies, MoviesInterface } from '@/lib/apollo/query/movies.query'
 import Pagination from '@/components/pagination'
-import styles from '@/styles/lib/ui/central/movies/movies.module.scss';
 import { InputCalendar, InputText } from '@/components/input'
 import Textarea from '@/components/textarea'
 import { GetAllGenere } from '@/lib/apollo/query/genre.query'
@@ -17,6 +16,11 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { Movieschema } from '@/lib/validation/MovieSchema'
 import { FileUpload } from '@/components/fileupload'
 import toast from 'react-hot-toast'
+import { isEmpty } from 'lodash'
+import styles from '@/styles/lib/ui/central/movies/movies.module.scss';
+import NoData from '@/components/nodata'
+import MovieID from './id.page'
+
 
 type FormFields = {
     file: File
@@ -76,7 +80,8 @@ export default function MoviesPage() {
 
     const onSubmit: SubmitHandler<FormFields> = (data) => {
 
-        console.log("Data File", data.file instanceof File)
+        console.log(data)
+
         mutate({
             variables: {
                 file: watch("file"),
@@ -155,7 +160,6 @@ export default function MoviesPage() {
                         label='Year'
                         name='year'
                     />
-
                     <InputCalendar
                         label='Release Date'
                         name='release_date'
@@ -198,6 +202,14 @@ export default function MoviesPage() {
                     />
                 </>}
             />
+            <div className={styles.body}>
+
+                {isEmpty(data?.getAllMovies.item) ? <NoData /> : data?.getAllMovies.item.map(({ movies_id, name, description, url, duration, year, release_date, created_at }: MoviesInterface) => (
+                    <MovieID key={movies_id} name={name}
+                        movies_id={movies_id} description={description} url={url} duration={duration} year={year} release_date={release_date} created_at={created_at} />
+                ))}
+
+            </div>
             <Pagination
                 currentPage={page}
                 hasNextPage={data?.getAllMovies?.hasNextPage}
