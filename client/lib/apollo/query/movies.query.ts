@@ -35,3 +35,29 @@ export const GetAllMovies: TypedDocumentNode = gql`
     }
   }
 `;
+
+
+export const GetMoviesByIds: TypedDocumentNode = gql`
+  query GetMoviesById($moviesId: ID!, $input: PaginationInput!) {
+    getMoviesById(movies_id: $moviesId) {
+      movies_id
+      name
+      description
+      duration
+      url
+      release_date
+      genre {
+        name
+      }
+      year
+      getAllRelatedMovies(input: $input) {
+        item {
+          name
+          url
+        }
+      }
+      created_at
+      updated_at
+    }
+  }
+`;

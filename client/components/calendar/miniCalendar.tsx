@@ -13,11 +13,10 @@ type YearList = {
 }
 
 interface Props {
-    value: any
-    setDate: any
+    onClick: (value: string) => void
     onClose: () => void
 }
-export default function MiniCalendar({ value, setDate, onClose }: Props) {
+export default function MiniCalendar({ onClick, onClose }: Props) {
 
 
     const [months, setMonths] = useState(new Date().getMonth())
@@ -33,11 +32,6 @@ export default function MiniCalendar({ value, setDate, onClose }: Props) {
         setYearList({ years: yearsInArray })
     }, [])
 
-
-    const onHandleClick = (e: SyntheticEvent<HTMLButtonElement>) => {
-        onClose();
-        setDate(e.currentTarget.value)
-    }
 
     return (
         <div className={styles.container}>
@@ -61,7 +55,7 @@ export default function MiniCalendar({ value, setDate, onClose }: Props) {
             <div className={styles.body}>
                 {generateDate(months, years).map(({ date, today }, index) => (
                     <div key={index}>
-                        <button value={format(new Date(date.toISOString()), "yyyy-MM-dd")} onClick={onHandleClick} className={cn(today && styles.active)}>
+                        <button value={format(new Date(date.toISOString()), "yyyy-MM-dd")} onClick={(e) => onClick(e.currentTarget.value)} className={cn(today && styles.active)}>
                             <span>{date.date()}</span>
                         </button>
                     </div>

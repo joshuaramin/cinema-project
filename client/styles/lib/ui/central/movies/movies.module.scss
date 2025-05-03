@@ -9,5 +9,7 @@
         display: grid;
         grid-template-columns: repeat(auto-fit, 300px);
         grid-template-rows: repeat(3, auto);
+        gap: 20px;
+        padding: 20px 0;
     }
 }

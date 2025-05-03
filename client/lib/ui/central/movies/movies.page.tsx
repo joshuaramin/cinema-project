@@ -34,8 +34,6 @@ type FormFields = {
 
 export default function MoviesPage() {
 
-    const user = store.get("UserAccount");
-
     const [gsearch, setGSearch] = useState<string>("");
     const [search, setSearch] = useState<string>("");
     const [page, setPage] = useState<number>(1);
@@ -163,6 +161,8 @@ export default function MoviesPage() {
                     <InputCalendar
                         label='Release Date'
                         name='release_date'
+                        setValue={setValue}
+                        value={watch("release_date")}
                         error={errors.release_date as FieldError}
                         register={register}
                         isRequired={true}

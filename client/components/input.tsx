@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useEffect, useState } from 'react'
+import React, { ChangeEvent, SyntheticEvent, useEffect, useState } from 'react'
 import styles from '@/styles/components/input.module.scss'
 import { VolkhovLight } from '@/lib/typography'
 import { TbLock, TbEyeOff, TbMail, TbEye, TbX, TbCalendar } from 'react-icons/tb'
@@ -171,16 +171,20 @@ interface InputCalendarProps<T extends FieldValues = any> {
     name: string
     label: string
     isRequired: boolean
+    setValue: any,
+    value: any
     error: FieldError | undefined
     register: UseFormRegister<T>;
 }
 
-export function InputCalendar({ error, isRequired, label, name, register }: InputCalendarProps) {
+export function InputCalendar({ error, isRequired, label, name, register, setValue, value }: InputCalendarProps) {
 
-
-    const [date, setDate] = useState("");
     const [toggle, setToggle] = useState(false);
 
+
+    const onHandleStateValue = (value: string) => {
+        setValue(name, value)
+    }
 
     const onHandleToggle = () => {
         setToggle(() => !toggle);
@@ -196,14 +200,14 @@ export function InputCalendar({ error, isRequired, label, name, register }: Inpu
             </div>
             <div className={styles.body}>
                 <div className={styles.inputCal}>
-                    <span className={cn(VolkhovLight.className)}>{date}</span>
+                    <span className={cn(VolkhovLight.className)}>{value}</span>
                 </div>
-                <input hidden type="text" placeholder='' {...register(name)} />
+                <input hidden {...register(name)} type="text" placeholder='' />
                 <div>
                     <button onClick={onHandleToggle}>
                         <TbCalendar size={23} />
                     </button>
-                    {toggle && <MiniCalendar value={date} setDate={setDate} onClose={onHandleToggle} />}
+                    {toggle && <MiniCalendar onClick={onHandleStateValue} onClose={onHandleToggle} />}
                 </div>
             </div>
             <div className={styles.errorBody}>
